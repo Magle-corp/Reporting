@@ -23,7 +23,7 @@ Assurez-vous que les ports suivants sont disponibles :
 ```shell
 git clone git@github.com:Magle-corp/Reporting.git
 cd Reporting
-cp .env.example .env && cp web/.env.example web/.env
+cp .env.example .env && cp backend/.env.example backend/.env
 docker-compose up --build
 ```
 
