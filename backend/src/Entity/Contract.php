@@ -29,7 +29,7 @@ class Contract
     private $contract_type_id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups('contract')]
+    #[Groups(['contract', 'read:customer:item'])]
     private $description;
 
     #[ORM\Column(type: 'integer')]

@@ -11,8 +11,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
-#[ORM\HasLifecycleCallbacks()]
-#[ApiResource(normalizationContext: ['groups' => ['customer']])]
+#[ORM\HasLifecycleCallbacks]
+#[ApiResource(
+    collectionOperations: [
+        'get' => ['normalization_context' => ['groups' => ['read:customer:collection']]],
+        'post' => ['denormalization_context' => ['groups' => ['write:customer:item']]]
+    ],
+    denormalizationContext: ['groups' => ['write:customer:item']],
+    normalizationContext: ['groups' => ['read:customer:item']]
+)]
 class Customer
 {
     #[ORM\Id]
@@ -21,25 +28,27 @@ class Customer
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups('customer')]
+    #[Groups(['read:customer:item', 'read:customer:collection', 'write:customer:item'])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups('customer')]
+    #[Groups(['read:customer:item', 'read:customer:collection', 'write:customer:item'])]
     private $surname;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    #[Groups('customer')]
+    #[Groups(['read:customer:item'])]
     private $created_at;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    #[Groups('customer')]
+    #[Groups(['read:customer:item'])]
     private $updated_at;
 
     #[ORM\OneToMany(mappedBy: 'customer_id', targetEntity: Contract::class, orphanRemoval: true)]
+    #[Groups(['read:customer:item'])]
     private $contracts;
 
     #[ORM\OneToMany(mappedBy: 'customer_id', targetEntity: Intervention::class, orphanRemoval: true)]
+    #[Groups(['read:customer:item'])]
     private $interventions;
 
     public function __construct()
