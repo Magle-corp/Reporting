@@ -6,9 +6,10 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\InterventionRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
-#[ApiResource]
+#[ApiResource(normalizationContext: ['groups' => ['intervention']])]
 class Intervention
 {
     #[ORM\Id]
@@ -17,9 +18,11 @@ class Intervention
     private $id;
 
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Groups('intervention')]
     private $date;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups('intervention')]
     private $quantity;
 
     #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'interventions')]
@@ -31,9 +34,11 @@ class Intervention
     private $contract_id;
 
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Groups('intervention')]
     private $created_at;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[Groups('intervention')]
     private $updated_at;
 
     public function getId(): ?int

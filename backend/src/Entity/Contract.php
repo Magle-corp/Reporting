@@ -8,9 +8,10 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ContractRepository::class)]
-#[ApiResource]
+#[ApiResource(normalizationContext: ['groups' => ['contract']])]
 class Contract
 {
     #[ORM\Id]
@@ -27,15 +28,19 @@ class Contract
     private $contract_type_id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups('contract')]
     private $description;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups('contract')]
     private $rate;
 
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Groups('contract')]
     private $created_at;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[Groups('contract')]
     private $updated_at;
 
     #[ORM\OneToMany(mappedBy: 'contract_id', targetEntity: Intervention::class, orphanRemoval: true)]
