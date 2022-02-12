@@ -38,11 +38,23 @@ class Contract
     private $contract_type_id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read:contract:item', 'read:contract:collection', 'write:contract:item', 'read:customer:item', 'read:intervention:item'])]
+    #[Groups([
+        'read:contract:item',
+        'read:contract:collection',
+        'write:contract:item',
+        'read:customer:item',
+        'read:intervention:item'
+    ])]
     private $description;
 
     #[ORM\Column(type: 'integer')]
-    #[Groups(['read:contract:item', 'read:contract:collection', 'write:contract:item', 'read:customer:item', 'read:intervention:item'])]
+    #[Groups([
+        'read:contract:item',
+        'read:contract:collection',
+        'write:contract:item',
+        'read:customer:item',
+        'read:intervention:item'
+    ])]
     private $rate;
 
     #[ORM\Column(type: 'datetime_immutable')]

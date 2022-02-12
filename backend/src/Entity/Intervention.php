@@ -26,11 +26,21 @@ class Intervention
     private $id;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    #[Groups(['read:intervention:item', 'read:intervention:collection', 'write:intervention:item', 'read:contract:item'])]
+    #[Groups([
+        'read:intervention:item',
+        'read:intervention:collection',
+        'write:intervention:item',
+        'read:contract:item'
+    ])]
     private $date;
 
     #[ORM\Column(type: 'integer')]
-    #[Groups(['read:intervention:item', 'read:intervention:collection', 'write:intervention:item'])]
+    #[Groups([
+        'read:intervention:item',
+        'read:intervention:collection',
+        'write:intervention:item',
+        'read:contract:item'
+    ])]
     private $quantity;
 
     #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'interventions')]
