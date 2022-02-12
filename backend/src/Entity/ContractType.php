@@ -21,11 +21,11 @@ class ContractType
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups('contractType')]
+    #[Groups(['contractType', 'read:contract:item'])]
     private $title;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups('contractType')]
+    #[Groups(['contractType', 'read:contract:item'])]
     private $description;
 
     #[ORM\Column(type: 'datetime_immutable')]

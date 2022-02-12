@@ -19,7 +19,7 @@ class Intervention
     private $id;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    #[Groups('intervention')]
+    #[Groups(['intervention', 'read:contract:item'])]
     private $date;
 
     #[ORM\Column(type: 'integer')]
