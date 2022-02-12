@@ -11,8 +11,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ContractTypeRepository::class)]
-#[ORM\HasLifecycleCallbacks()]
-#[ApiResource(normalizationContext: ['groups' => ['contractType']])]
+#[ORM\HasLifecycleCallbacks]
+#[ApiResource(
+    collectionOperations: [
+        'get' => ['normalization_context' => ['groups' => ['read:contract_type:collection']]],
+        'post' => ['denormalization_context' => ['groups' => ['write:contract_type:item']]]
+    ],
+    denormalizationContext: ['groups' => ['write:contract_type:item']],
+    normalizationContext: ['groups' => ['read:contract_type:item']]
+)]
 class ContractType
 {
     #[ORM\Id]
@@ -21,19 +28,19 @@ class ContractType
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['contractType', 'read:contract:item'])]
+    #[Groups(['read:contract_type:item', 'read:contract_type:collection', 'write:contract_type:item', 'read:contract:item'])]
     private $title;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['contractType', 'read:contract:item'])]
+    #[Groups(['read:contract_type:item', 'read:contract_type:collection', 'write:contract_type:item', 'read:contract:item'])]
     private $description;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    #[Groups('contractType')]
+    #[Groups(['read:contract_type:item'])]
     private $created_at;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    #[Groups('contractType')]
+    #[Groups(['read:contract_type:item'])]
     private $updated_at;
 
     #[ORM\OneToMany(mappedBy: 'contract_type_id', targetEntity: Contract::class, orphanRemoval: true)]
