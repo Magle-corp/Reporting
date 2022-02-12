@@ -28,11 +28,11 @@ class Customer
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['read:customer:item', 'read:customer:collection', 'write:customer:item', 'read:contract:item'])]
+    #[Groups(['read:customer:item', 'read:customer:collection', 'write:customer:item', 'read:contract:item', 'read:intervention:item'])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['read:customer:item', 'read:customer:collection', 'write:customer:item', 'read:contract:item'])]
+    #[Groups(['read:customer:item', 'read:customer:collection', 'write:customer:item', 'read:contract:item', 'read:intervention:item'])]
     private $surname;
 
     #[ORM\Column(type: 'datetime_immutable')]
