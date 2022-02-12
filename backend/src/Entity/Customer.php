@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
+#[ORM\HasLifecycleCallbacks()]
 #[ApiResource(normalizationContext: ['groups' => ['customer']])]
 class Customer
 {
@@ -81,11 +82,10 @@ class Customer
         return $this->created_at;
     }
 
-    public function setCreatedAt(DateTimeImmutable $created_at): self
+    #[ORM\PrePersist]
+    public function setCreatedAt(): void
     {
-        $this->created_at = $created_at;
-
-        return $this;
+        $this->created_at = new DateTimeImmutable();
     }
 
     public function getUpdatedAt(): ?DateTimeImmutable
@@ -93,11 +93,10 @@ class Customer
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(?DateTimeImmutable $updated_at): self
+    #[ORM\PreUpdate]
+    public function setUpdatedAt(): void
     {
-        $this->updated_at = $updated_at;
-
-        return $this;
+        $this->updated_at = new DateTimeImmutable();
     }
 
     /**
