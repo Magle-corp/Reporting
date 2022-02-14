@@ -4,10 +4,11 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ContractTypeRepository;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ContractTypeRepository::class)]
@@ -15,8 +16,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     normalizationContext: ['groups' => ['read:contract_type:item']]
 )]
-class ContractType
+class ContractType implements TimestampableInterface
 {
+    use TimestampableTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -35,14 +38,6 @@ class ContractType
         'read:contract:item'
     ])]
     private $description;
-
-    #[ORM\Column(type: 'datetime_immutable')]
-    #[Groups(['read:contract_type:item'])]
-    private $created_at;
-
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    #[Groups(['read:contract_type:item'])]
-    private $updated_at;
 
     #[ORM\OneToMany(mappedBy: 'contract_type_id', targetEntity: Contract::class, orphanRemoval: true)]
     private $contracts;
@@ -79,28 +74,6 @@ class ContractType
         $this->description = $description;
 
         return $this;
-    }
-
-    public function getCreatedAt(): ?DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    #[ORM\PrePersist]
-    public function setCreatedAt(): void
-    {
-        $this->created_at = new DateTimeImmutable();
-    }
-
-    public function getUpdatedAt(): ?DateTimeImmutable
-    {
-        return $this->updated_at;
-    }
-
-    #[ORM\PreUpdate]
-    public function setUpdatedAt(): void
-    {
-        $this->updated_at = new DateTimeImmutable();
     }
 
     /**

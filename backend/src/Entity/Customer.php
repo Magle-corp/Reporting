@@ -4,10 +4,11 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CustomerRepository;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
@@ -15,8 +16,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     normalizationContext: ['groups' => ['read:customer:item']]
 )]
-class Customer
+class Customer implements TimestampableInterface
 {
+    use TimestampableTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -37,14 +40,6 @@ class Customer
         'read:intervention:item'
     ])]
     private $surname;
-
-    #[ORM\Column(type: 'datetime_immutable')]
-    #[Groups(['read:customer:item'])]
-    private $created_at;
-
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    #[Groups(['read:customer:item'])]
-    private $updated_at;
 
     #[ORM\OneToMany(mappedBy: 'customer_id', targetEntity: Contract::class, orphanRemoval: true)]
     #[Groups(['read:customer:item'])]
@@ -87,28 +82,6 @@ class Customer
         $this->surname = $surname;
 
         return $this;
-    }
-
-    public function getCreatedAt(): ?DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    #[ORM\PrePersist]
-    public function setCreatedAt(): void
-    {
-        $this->created_at = new DateTimeImmutable();
-    }
-
-    public function getUpdatedAt(): ?DateTimeImmutable
-    {
-        return $this->updated_at;
-    }
-
-    #[ORM\PreUpdate]
-    public function setUpdatedAt(): void
-    {
-        $this->updated_at = new DateTimeImmutable();
     }
 
     /**

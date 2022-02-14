@@ -4,8 +4,9 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\InterventionRepository;
-use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
@@ -13,8 +14,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     normalizationContext: ['groups' => ['read:intervention:item']]
 )]
-class Intervention
+class Intervention implements TimestampableInterface
 {
+    use TimestampableTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -43,14 +46,6 @@ class Intervention
     #[ORM\JoinColumn(nullable: false)]
     #[Groups('read:intervention:item')]
     private $contract_id;
-
-    #[ORM\Column(type: 'datetime_immutable')]
-    #[Groups('read:intervention:item')]
-    private $created_at;
-
-    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    #[Groups('read:intervention:item')]
-    private $updated_at;
 
     public function getId(): ?int
     {
@@ -103,27 +98,5 @@ class Intervention
         $this->contract_id = $contract_id;
 
         return $this;
-    }
-
-    public function getCreatedAt(): ?DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    #[ORM\PrePersist]
-    public function setCreatedAt(): void
-    {
-        $this->created_at = new DateTimeImmutable();
-    }
-
-    public function getUpdatedAt(): ?DateTimeImmutable
-    {
-        return $this->updated_at;
-    }
-
-    #[ORM\PreUpdate]
-    public function setUpdatedAt(): void
-    {
-        $this->updated_at = new DateTimeImmutable();
     }
 }
