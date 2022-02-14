@@ -11,11 +11,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
-    collectionOperations: [
-        'get' => ['normalization_context' => ['groups' => ['read:intervention:collection']]],
-        'post' => ['denormalization_context' => ['groups' => ['write:intervention:item']]]
-    ],
-    denormalizationContext: ['groups' => ['write:intervention:item']],
     normalizationContext: ['groups' => ['read:intervention:item']]
 )]
 class Intervention
@@ -28,8 +23,6 @@ class Intervention
     #[ORM\Column(type: 'datetime_immutable')]
     #[Groups([
         'read:intervention:item',
-        'read:intervention:collection',
-        'write:intervention:item',
         'read:contract:item'
     ])]
     private $date;
@@ -37,8 +30,6 @@ class Intervention
     #[ORM\Column(type: 'integer')]
     #[Groups([
         'read:intervention:item',
-        'read:intervention:collection',
-        'write:intervention:item',
         'read:contract:item'
     ])]
     private $quantity;

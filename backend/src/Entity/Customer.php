@@ -13,11 +13,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
-    collectionOperations: [
-        'get' => ['normalization_context' => ['groups' => ['read:customer:collection']]],
-        'post' => ['denormalization_context' => ['groups' => ['write:customer:item']]]
-    ],
-    denormalizationContext: ['groups' => ['write:customer:item']],
     normalizationContext: ['groups' => ['read:customer:item']]
 )]
 class Customer
@@ -30,8 +25,6 @@ class Customer
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups([
         'read:customer:item',
-        'read:customer:collection',
-        'write:customer:item',
         'read:contract:item',
         'read:intervention:item'
     ])]
@@ -40,8 +33,6 @@ class Customer
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Groups([
         'read:customer:item',
-        'read:customer:collection',
-        'write:customer:item',
         'read:contract:item',
         'read:intervention:item'
     ])]
