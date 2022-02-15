@@ -10,9 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints\Valid;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
-#[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     normalizationContext: ['groups' => ['read:customer:item']]
 )]
@@ -25,28 +27,42 @@ class Customer implements TimestampableInterface
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Groups([
-        'read:customer:item',
-        'read:contract:item',
-        'read:intervention:item'
-    ])]
+    #[ORM\Column(type: 'string', length: 20)]
+    #[
+        Groups([
+            'read:customer:item',
+            'read:contract:item',
+            'read:intervention:item'
+        ]),
+        Length(min: 3, max: 20)
+    ]
     private $name;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups([
-        'read:customer:item',
-        'read:contract:item',
-        'read:intervention:item'
-    ])]
+    #[ORM\Column(type: 'string', length: 20, nullable: true)]
+    #[
+        Groups([
+            'read:customer:item',
+            'read:contract:item',
+            'read:intervention:item'
+        ]),
+        Length(min: 3, max: 20)
+    ]
     private $surname;
 
     #[ORM\OneToMany(mappedBy: 'customer_id', targetEntity: Contract::class, orphanRemoval: true)]
-    #[Groups(['read:customer:item'])]
+    #[
+        Groups(['read:customer:item']),
+        Type(Contract::class),
+        Valid
+    ]
     private $contracts;
 
     #[ORM\OneToMany(mappedBy: 'customer_id', targetEntity: Intervention::class, orphanRemoval: true)]
-    #[Groups(['read:customer:item'])]
+    #[
+        Groups(['read:customer:item']),
+        Type(Intervention::class),
+        Valid
+    ]
     private $interventions;
 
     public function __construct()

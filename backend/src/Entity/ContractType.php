@@ -10,9 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints\Valid;
 
 #[ORM\Entity(repositoryClass: ContractTypeRepository::class)]
-#[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     normalizationContext: ['groups' => ['read:contract_type:item']]
 )]
@@ -25,21 +27,31 @@ class ContractType implements TimestampableInterface
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Groups([
-        'read:contract_type:item',
-        'read:contract:item'
-    ])]
+    #[ORM\Column(type: 'string', length: 20)]
+    #[
+        Groups([
+            'read:contract_type:item',
+            'read:contract:item'
+        ]),
+        Length(min: 3, max: 20)
+    ]
     private $title;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Groups([
-        'read:contract_type:item',
-        'read:contract:item'
-    ])]
+    #[ORM\Column(type: 'string', length: 100)]
+    #[
+        Groups([
+            'read:contract_type:item',
+            'read:contract:item'
+        ]),
+        Length(min: 5, max: 100)
+    ]
     private $description;
 
     #[ORM\OneToMany(mappedBy: 'contract_type_id', targetEntity: Contract::class, orphanRemoval: true)]
+    #[
+        Type(Contract::class),
+        Valid
+    ]
     private $contracts;
 
     public function __construct()

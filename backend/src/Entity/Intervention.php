@@ -9,9 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints\Valid;
 
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
-#[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     normalizationContext: ['groups' => ['read:intervention:item']]
 )]
@@ -25,27 +27,41 @@ class Intervention implements TimestampableInterface
     private $id;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    #[Groups([
-        'read:intervention:item',
-        'read:contract:item'
-    ])]
+    #[
+        Groups([
+            'read:intervention:item',
+            'read:contract:item'
+        ]),
+        Type(DateTimeImmutable::class)
+    ]
     private $date;
 
-    #[ORM\Column(type: 'integer')]
-    #[Groups([
-        'read:intervention:item',
-        'read:contract:item'
-    ])]
+    #[ORM\Column(type: 'integer', length: 4)]
+    #[
+        Groups([
+            'read:intervention:item',
+            'read:contract:item'
+        ]),
+        Length(min: 1, max: 4)
+    ]
     private $quantity;
 
     #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'interventions')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups('read:intervention:item')]
+    #[
+        Groups('read:intervention:item'),
+        Type(Customer::class),
+        Valid
+    ]
     private $customer_id;
 
     #[ORM\ManyToOne(targetEntity: Contract::class, inversedBy: 'interventions')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups('read:intervention:item')]
+    #[
+        Groups('read:intervention:item'),
+        Type(Contract::class),
+        Valid
+    ]
     private $contract_id;
 
     public function getId(): ?int

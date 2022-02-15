@@ -10,9 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints\Valid;
 
 #[ORM\Entity(repositoryClass: ContractRepository::class)]
-#[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     normalizationContext: ['groups' => ['read:contract:item']]
 )]
@@ -27,32 +29,50 @@ class Contract implements TimestampableInterface
 
     #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'contracts')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read:contract:item'])]
+    #[
+        Groups(['read:contract:item']),
+        Type(Customer::class),
+        Valid
+    ]
     private $customer_id;
 
     #[ORM\ManyToOne(targetEntity: ContractType::class, inversedBy: 'contracts')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read:contract:item'])]
+    #[
+        Groups(['read:contract:item']),
+        Type(ContractType::class),
+        Valid
+    ]
     private $contract_type_id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Groups([
-        'read:contract:item',
-        'read:customer:item',
-        'read:intervention:item'
-    ])]
+    #[ORM\Column(type: 'string', length: 100)]
+    #[
+        Groups([
+            'read:contract:item',
+            'read:customer:item',
+            'read:intervention:item'
+        ]),
+        Length(min: 5, max: 100)
+    ]
     private $description;
 
-    #[ORM\Column(type: 'integer')]
-    #[Groups([
-        'read:contract:item',
-        'read:customer:item',
-        'read:intervention:item'
-    ])]
+    #[ORM\Column(type: 'integer', length: 4)]
+    #[
+        Groups([
+            'read:contract:item',
+            'read:customer:item',
+            'read:intervention:item'
+        ]),
+        Length(min: 1, max: 4)
+    ]
     private $rate;
 
     #[ORM\OneToMany(mappedBy: 'contract_id', targetEntity: Intervention::class, orphanRemoval: true)]
-    #[Groups(['read:contract:item'])]
+    #[
+        Groups(['read:contract:item']),
+        Type(Intervention::class),
+        Valid
+    ]
     private $interventions;
 
     public function __construct()
