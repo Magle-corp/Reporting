@@ -12,6 +12,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints\Valid;
 
 #[ORM\Entity(repositoryClass: ContractRepository::class)]
 #[ApiResource(
@@ -30,7 +31,8 @@ class Contract implements TimestampableInterface
     #[ORM\JoinColumn(nullable: false)]
     #[
         Groups(['read:contract:item']),
-        Type(Customer::class)
+        Type(Customer::class),
+        Valid
     ]
     private $customer_id;
 
@@ -38,7 +40,8 @@ class Contract implements TimestampableInterface
     #[ORM\JoinColumn(nullable: false)]
     #[
         Groups(['read:contract:item']),
-        Type(ContractType::class)
+        Type(ContractType::class),
+        Valid
     ]
     private $contract_type_id;
 
@@ -67,7 +70,8 @@ class Contract implements TimestampableInterface
     #[ORM\OneToMany(mappedBy: 'contract_id', targetEntity: Intervention::class, orphanRemoval: true)]
     #[
         Groups(['read:contract:item']),
-        Type(Intervention::class)
+        Type(Intervention::class),
+        Valid
     ]
     private $interventions;
 
