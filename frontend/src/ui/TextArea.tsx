@@ -9,7 +9,7 @@ const StyledTextArea = styled.textarea<{ isValid: boolean | null }>`
   ${({ theme }) => theme.typography.p};
   max-width: 400px;
   padding: 4px;
-  margin-top: 15px;
+  margin: 15px 0 10px 0;
   border-radius: 3px;
   resize: none;
 
