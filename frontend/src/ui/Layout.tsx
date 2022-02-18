@@ -8,7 +8,10 @@ interface Props {
   variant?: string;
 }
 
-const StyledLayout = styled.div<{ variant?: string }>``;
+const StyledLayout = styled.div<{ variant?: string }>`
+  background-color: lightcoral;
+  width: 100%;
+`;
 
 /**
  * Provide ui component Layout.
