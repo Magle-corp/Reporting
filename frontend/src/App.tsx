@@ -1,16 +1,13 @@
 // Use.
+import { useAppContext } from './context';
+import { Context } from './type';
+import { SignIn } from './screen';
 import { Layout } from './ui';
-import { Arrow } from './theme/icon';
 
 const App = () => {
-  return (
-    <>
-      <Layout>
-        <p>Hello world</p>
-        <Arrow />
-      </Layout>
-    </>
-  );
+  const { screen } = useAppContext() as Context;
+
+  return <Layout>{screen === 'signin' && <SignIn />}</Layout>;
 };
 
 export { App };
