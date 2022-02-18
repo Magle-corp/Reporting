@@ -1,1 +1,2 @@
-export { SignIn } from './form/SignIn';
+export { SignInForm } from './form/SignInForm';
+export { ContractForm } from './form/crud/ContractForm';

@@ -1,7 +1,7 @@
 // Type for custom React context.
 
 interface Context {
-  screen: 'signin';
+  screen: 'signin' | 'add_contract';
   setScree: Function;
 }
 

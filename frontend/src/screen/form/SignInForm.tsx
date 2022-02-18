@@ -10,9 +10,9 @@ import {
 } from '../../ui';
 
 /**
- * Provide screen SignIn.
+ * Provide screen SignInForm.
  */
-const SignIn = () => {
+const SignInForm = () => {
   const formik = useFormik({
     initialValues: {
       id: '',
@@ -68,4 +68,4 @@ const SignIn = () => {
   );
 };
 
-export { SignIn };
+export { SignInForm };
