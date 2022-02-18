@@ -14,22 +14,19 @@ const StyledInput = styled.input<{ isValid: boolean | null }>`
   ${({ isValid }) =>
     isValid &&
     css`
-      //border: 2px solid ${({ theme }) => theme.color.primary};
-      border: 2px solid green;
+      border: 2px solid ${({ theme }) => theme.color.success};
     `}
 
   ${({ isValid }) =>
     !isValid &&
     css`
-      //border: 2px solid ${({ theme }) => theme.color.error};
-      border: 2px solid red;
+      border: 2px solid ${({ theme }) => theme.color.error};
     `}
   
   ${({ isValid }) =>
     isValid === null &&
     css`
-      //border: 2px solid ${({ theme }) => theme.color.darkGrey};
-      border: 2px solid black;
+      border: 2px solid ${({ theme }) => theme.color.black};
     `};
 `;
 

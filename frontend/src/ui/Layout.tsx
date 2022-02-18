@@ -9,7 +9,6 @@ interface Props {
 }
 
 const StyledLayout = styled.div<{ variant?: string }>`
-  background-color: lightcoral;
   width: 100%;
 `;
 

@@ -18,8 +18,8 @@ const SignIn = () => {
           <Text variant="h4">Mot de passe</Text>
           <StyledInput type="text" isValid={null} />
         </StyledLabel>
+        <StyledSubmit type="submit" value="Envoyer" isValid={false} />
       </StyledForm>
-      <StyledSubmit type="submit" value="Envoyer" isValid={false} />
     </div>
   );
 };
