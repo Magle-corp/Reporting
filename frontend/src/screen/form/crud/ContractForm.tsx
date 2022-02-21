@@ -25,6 +25,7 @@ const ContractForm = () => {
     },
     validationSchema: ContractFormValidator,
     onSubmit: (values) => {
+      values.rate = values.rate.toString();
       mutate(values);
     },
   });

@@ -10,7 +10,7 @@ const ContractFormValidator = Yup.object({
     .required('champ requis'),
   rate: Yup.number()
     .min(0, 'minimum 0')
-    .max(100, 'maximum 100 caractères')
+    .max(100, 'maximum 100')
     .positive()
     .required('champ requis'),
 });
