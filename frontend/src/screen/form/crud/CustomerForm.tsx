@@ -1,6 +1,8 @@
 // Use.
 import { useFormik } from 'formik';
+import { useMutation } from 'react-query';
 import { CustomerFormValidator, postItem } from '../../../util';
+import { Customer } from '../../../type';
 import {
   StyledForm,
   StyledInput,
@@ -20,12 +22,20 @@ const CustomerForm = () => {
     },
     validationSchema: CustomerFormValidator,
     onSubmit: (values) => {
-      postItem('/customers', values);
+      mutate(values);
     },
   });
 
+  const { mutate, isSuccess, isError } = useMutation(
+    async (values: Customer) => {
+      await postItem('/customers', values);
+    }
+  );
+
   return (
     <div>
+      {isSuccess && <p>SUCCES</p>}
+      {isError && <p>ERROR</p>}
       <StyledForm onSubmit={formik.handleSubmit}>
         <StyledLabel htmlFor="name">
           <Text variant="h4">Nom</Text>
