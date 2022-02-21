@@ -7,16 +7,6 @@ interface Props {
   isValid: boolean;
 }
 
-const StyledContainer = styled(Container)<{ isValid: boolean }>`
-  align-items: center;
-  justify-content: space-between;
-  padding: 6px 9px;
-  border: 2px solid
-    ${({ theme, isValid }) =>
-      isValid ? theme.color.success : theme.color.error};
-  border-radius: 3px;
-`;
-
 /**
  * Provide component ActionsFeedBack.
  *
@@ -42,3 +32,13 @@ const ActionsFeedBack = ({ isValid }: Props) => {
 };
 
 export { ActionsFeedBack };
+
+const StyledContainer = styled(Container)<{ isValid: boolean }>`
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 9px;
+  border: 2px solid
+    ${({ theme, isValid }) =>
+      isValid ? theme.color.success : theme.color.error};
+  border-radius: 3px;
+`;

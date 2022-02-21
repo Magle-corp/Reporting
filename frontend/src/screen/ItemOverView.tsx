@@ -1,7 +1,8 @@
 // Use.
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAppContext } from '../context';
 import { Context, Screen } from '../type';
+import { useGetScreensByRoute } from '../hook';
 import { Text, Container } from '../ui';
 
 /**
@@ -9,18 +10,9 @@ import { Text, Container } from '../ui';
  */
 const ItemOverView = () => {
   const { screen, setScreen, availableScreens } = useAppContext() as Context;
-  const [itemMenus, setItemMenus] = useState<Screen[]>();
-
-  // Get screen related menus.
-  useEffect(() => {
-    setItemMenus(
-      availableScreens.filter(
-        (element) =>
-          element.route === screen.route &&
-          (element.args === 'list' || element.args === 'add')
-      )
-    );
-  }, [screen, availableScreens]);
+  const [itemMenus] = useState<Screen[]>(
+    useGetScreensByRoute(screen, availableScreens, ['list', 'add'])
+  );
 
   return (
     <Container spacing={30} direction="vertical">

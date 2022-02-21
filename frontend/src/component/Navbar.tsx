@@ -1,7 +1,9 @@
 // Use.
+import { useState } from 'react';
 import styled from 'styled-components';
 import { useAppContext } from '../context';
-import { Context } from '../type';
+import { Context, Screen } from '../type';
+import { useGetScreensByArgs } from '../hook';
 import { Text } from '../ui';
 
 /**
@@ -9,21 +11,24 @@ import { Text } from '../ui';
  */
 const Navbar = () => {
   const { setScreen, availableScreens } = useAppContext() as Context;
+  const [itemMenus] = useState<Screen[]>(
+    useGetScreensByArgs(availableScreens, ['overview'])
+  );
 
   return (
     <StyledNavbar>
       <StyledList>
-        {availableScreens.map((availableScreen) => (
-          <div key={availableScreen.label + '_' + Math.random() * 10}>
-            {availableScreen.args === 'overview' && (
+        {itemMenus.map((item) => (
+          <div key={item.label + '_' + Math.random() * 10}>
+            {item.args === 'overview' && (
               <StyledListItem
                 onClick={() => {
-                  setScreen(availableScreen);
+                  setScreen(item);
                 }}
               >
-                {availableScreen.icon}
+                {item.icon}
                 <Text as="span" variant="h4">
-                  {availableScreen.label}
+                  {item.label}
                 </Text>
               </StyledListItem>
             )}
@@ -40,7 +45,7 @@ const StyledNavbar = styled.nav`
   display: flex;
   flex-direction: row;
   width: max-content;
-  margin: 30px auto;
+  margin: 30px 0;
 
   > *:not(:first-child) {
     margin-left: 20px;
