@@ -1,4 +1,5 @@
 export type { Context } from './Context';
 export type { Contract } from './Contract';
-export type { ContractTypes } from './ContractTypes';
+export type { ContractType } from './ContractType';
 export type { Customer } from './Customer';
+export type { Intervention } from './Intervention';

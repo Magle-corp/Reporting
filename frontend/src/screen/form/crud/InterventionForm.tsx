@@ -1,6 +1,8 @@
 // Use.
 import { useFormik } from 'formik';
-import { InterventionFormValidator } from '../../../util';
+import { useQuery, useMutation } from 'react-query';
+import { InterventionFormValidator, getItems, postItem } from '../../../util';
+import { Intervention, Customer, Contract } from '../../../type';
 import {
   StyledForm,
   StyledInput,
@@ -9,9 +11,6 @@ import {
   StyledSubmit,
   Text,
 } from '../../../ui';
-import { useQuery } from 'react-query';
-import { getItems } from '../../../util/fetcher';
-import { Customer, Contract } from '../../../type';
 
 /**
  * Provide screen InterventionForm.
@@ -19,14 +18,15 @@ import { Customer, Contract } from '../../../type';
 const InterventionForm = () => {
   const formik = useFormik({
     initialValues: {
-      customer: '',
-      contract: '',
+      customerId: '',
+      contractId: '',
       date: '',
       quantity: '',
     },
     validationSchema: InterventionFormValidator,
     onSubmit: (values) => {
-      console.log(values);
+      values.quantity = values.quantity.toString();
+      mutate(values);
     },
   });
 
@@ -40,51 +40,63 @@ const InterventionForm = () => {
   );
   const contracts = (dataContracts?.data as Contract[]) || [];
 
+  const { mutate, isSuccess, isError } = useMutation(
+    async (values: Intervention) => {
+      await postItem('/interventions', values);
+    }
+  );
+
   return (
     <div>
+      {isSuccess && <p>SUCCES</p>}
+      {isError && <p>ERROR</p>}
       <StyledForm onSubmit={formik.handleSubmit}>
-        <StyledLabel htmlFor="customer">
+        <StyledLabel htmlFor="customerId">
           <Text variant="h4">Client</Text>
           <StyledSelect
-            id="customer"
-            isValid={formik.touched.customer ? !formik.errors.customer : null}
-            {...formik.getFieldProps('customer')}
+            id="customerId"
+            isValid={
+              formik.touched.customerId ? !formik.errors.customerId : null
+            }
+            {...formik.getFieldProps('customerId')}
           >
             <option value="default">selectionner un client</option>
             {customers.map((customer) => (
               <option
                 key={customer.name + '_' + Math.random() * 10}
-                value={customer.id}
+                value={`/api/customers/${customer.id}`}
                 label={customer.name}
               >
                 {customer.name} {customer.surname}
               </option>
             ))}
           </StyledSelect>
-          {formik.touched.customer && formik.errors.customer && (
-            <Text>{formik.errors.customer}</Text>
+          {formik.touched.customerId && formik.errors.customerId && (
+            <Text>{formik.errors.customerId}</Text>
           )}
         </StyledLabel>
-        <StyledLabel htmlFor="contract">
+        <StyledLabel htmlFor="contractId">
           <Text variant="h4">Client</Text>
           <StyledSelect
-            id="contract"
-            isValid={formik.touched.contract ? !formik.errors.contract : null}
-            {...formik.getFieldProps('contract')}
+            id="contractId"
+            isValid={
+              formik.touched.contractId ? !formik.errors.contractId : null
+            }
+            {...formik.getFieldProps('contractId')}
           >
             <option value="default">selectionner un client</option>
             {contracts.map((contract) => (
               <option
                 key={contract.description + '_' + Math.random() * 10}
-                value={contract.id}
+                value={`/api/contracts/${contract.id}`}
                 label={contract.description}
               >
                 {contract.description}
               </option>
             ))}
           </StyledSelect>
-          {formik.touched.contract && formik.errors.contract && (
-            <Text>{formik.errors.contract}</Text>
+          {formik.touched.contractId && formik.errors.contractId && (
+            <Text>{formik.errors.contractId}</Text>
           )}
         </StyledLabel>
         <StyledLabel htmlFor="date">
@@ -115,10 +127,10 @@ const InterventionForm = () => {
           type="submit"
           value="Envoyer"
           isValid={
-            formik.touched.customer &&
-            !formik.errors.customer &&
-            formik.touched.contract &&
-            !formik.errors.contract &&
+            formik.touched.customerId &&
+            !formik.errors.customerId &&
+            formik.touched.contractId &&
+            !formik.errors.contractId &&
             formik.touched.date &&
             !formik.errors.date &&
             formik.touched.quantity &&

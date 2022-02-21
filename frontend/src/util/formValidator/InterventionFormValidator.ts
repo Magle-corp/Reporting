@@ -2,8 +2,8 @@
 import * as Yup from 'yup';
 
 const InterventionFormValidator = Yup.object({
-  customer: Yup.string().required('champ requis'),
-  contract: Yup.string().required('champ requis'),
+  customerId: Yup.string().required('champ requis'),
+  contractId: Yup.string().required('champ requis'),
   date: Yup.date().required('champ requis'),
   quantity: Yup.number()
     .min(0, 'minimum 0')
