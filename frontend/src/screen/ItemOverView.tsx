@@ -1,40 +1,47 @@
 // Use.
-import styled from 'styled-components';
+import { useState, useEffect } from 'react';
 import { useAppContext } from '../context';
-import { Context } from '../type';
-
-const StyledContainer = styled.div`
-  box-sizing: border-box;
-  background-color: lightyellow;
-  display: flex;
-  flex-direction: row;
-  max-width: 500px;
-  padding: 20px;
-  margin: 0 auto;
-`;
-
-const StyledButton = styled.button`
-  ${({ theme }) => theme.typography.button}
-`;
+import { Context, Screen } from '../type';
+import { Text, Container } from '../ui';
 
 /**
  * Provide screen ItemOverView.
  */
 const ItemOverView = () => {
-  const { screen, setScreen } = useAppContext() as Context;
+  const { screen, setScreen, availableScreens } = useAppContext() as Context;
+  const [itemMenus, setItemMenus] = useState<Screen[]>();
+
+  // Get screen related menus.
+  useEffect(() => {
+    setItemMenus(
+      availableScreens.filter(
+        (element) =>
+          element.route === screen.route &&
+          (element.args === 'list' || element.args === 'add')
+      )
+    );
+  }, [screen, availableScreens]);
+
   return (
-    <StyledContainer>
-      <StyledButton
-        onClick={() => setScreen(`${screen.replace('overview', 'add')}`)}
-      >
-        Créer
-      </StyledButton>
-      <StyledButton
-        onClick={() => setScreen(`${screen.replace('overview', 'read')}`)}
-      >
-        Voir
-      </StyledButton>
-    </StyledContainer>
+    <Container spacing={30} direction="vertical">
+      <Container spacing={10} direction="horizontal" center={true}>
+        {screen.icon}
+        <Text variant="h3">{screen.label}</Text>
+      </Container>
+      <Container spacing={30} direction="vertical">
+        {itemMenus?.map((item) => (
+          <Container
+            direction="vertical"
+            key={item.label + '_' + Math.random() * 10}
+            onClick={() => {
+              setScreen(item);
+            }}
+          >
+            <Text variant="h4">{item.label}</Text>
+          </Container>
+        ))}
+      </Container>
+    </Container>
   );
 };
 

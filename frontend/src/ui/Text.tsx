@@ -1,26 +1,23 @@
 // Use.
-import React, { ReactNode } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface Props {
-  className?: string;
-  children: ReactNode;
   variant?: 'p' | 'h1' | 'h2' | 'h3' | 'h4';
-  as?: React.ElementType;
 }
-
-const StyledText = styled.p<{ variant: string }>`
-  ${({ theme, variant }) => theme.typography[variant]}
-  box-sizing: border-box;
-`;
 
 /**
  * Provide ui component Text.
+ *
+ * @param variant
+ *    string, desired typography style.
  */
-const Text = ({ className, children, variant = 'p', as, ...props }: Props) => (
-  <StyledText className={className} variant={variant} as={as} {...props}>
-    {children}
-  </StyledText>
-);
+const Text = styled.p<Props>`
+  ${({ theme, variant }) =>
+    variant &&
+    css`
+      ${theme.typography[variant]}
+    `}
+  box-sizing: border-box;
+`;
 
 export { Text };

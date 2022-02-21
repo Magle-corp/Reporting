@@ -2,6 +2,9 @@
 import axios from 'axios';
 import { Customer, Contract, Intervention } from '../type';
 
+/**
+ * Axios setting.
+ */
 const fetcher = axios.create({
   baseURL: 'http://localhost:8080/api',
   timeout: 5000,
@@ -11,10 +14,22 @@ const fetcher = axios.create({
   },
 });
 
+/**
+ * Get method.
+ * @param url
+ *    string, the url to fetch.
+ */
 const getItems = (url: string) => {
   return fetcher.get(url);
 };
 
+/**
+ * Post method.
+ * @param url
+ *    string, the url to fetch.
+ * @param values
+ *    object, values for fetch body.
+ */
 const postItem = (url: string, values: Customer | Contract | Intervention) => {
   return fetcher.post(url, values);
 };

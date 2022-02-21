@@ -3,8 +3,11 @@ import styled, { css } from 'styled-components';
 
 /**
  * Provide ui component Submit.
+ *
+ * @param isValid
+ *    boolean | undefined, depend on the form state.
  */
-const StyledSubmit = styled.input<{ isValid: boolean | undefined }>`
+const Submit = styled.input<{ isValid: boolean | undefined }>`
   ${({ theme }) => theme.typography.button};
 
   ${({ isValid }) =>
@@ -22,4 +25,4 @@ const StyledSubmit = styled.input<{ isValid: boolean | undefined }>`
     `};
 `;
 
-export { StyledSubmit };
+export { Submit };

@@ -1,6 +1,9 @@
 // Use.
 import * as Yup from 'yup';
 
+/**
+ * Formik + Yup validator schema form Customer form.
+ */
 const CustomerFormValidator = Yup.object({
   name: Yup.string()
     .min(3, 'minimum 3 caractères')

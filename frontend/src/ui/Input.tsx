@@ -3,8 +3,11 @@ import styled, { css } from 'styled-components';
 
 /**
  * Provide ui component Input.
+ *
+ * @param isValid
+ *    boolean | null, depend on the form state.
  */
-const StyledInput = styled.input<{ isValid: boolean | null }>`
+const Input = styled.input<{ isValid: boolean | null }>`
   ${({ theme }) => theme.typography.p};
   box-sizing: border-box;
   width: 100%;
@@ -31,4 +34,4 @@ const StyledInput = styled.input<{ isValid: boolean | null }>`
     `};
 `;
 
-export { StyledInput };
+export { Input };

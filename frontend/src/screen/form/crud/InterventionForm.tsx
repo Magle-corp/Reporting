@@ -1,16 +1,17 @@
 // Use.
 import { useFormik } from 'formik';
 import { useQuery, useMutation } from 'react-query';
+import { useAppContext } from '../../../context';
 import { InterventionFormValidator, getItems, postItem } from '../../../util';
-import { Intervention, Customer, Contract } from '../../../type';
+import { Intervention, Customer, Contract, Context } from '../../../type';
 import { ActionsFeedBack } from '../../../component';
 import {
-  StyledContainer,
-  StyledForm,
-  StyledInput,
-  StyledLabel,
-  StyledSelect,
-  StyledSubmit,
+  Container,
+  Form,
+  Input,
+  Label,
+  Select,
+  Submit,
   Text,
 } from '../../../ui';
 
@@ -18,6 +19,8 @@ import {
  * Provide screen InterventionForm.
  */
 const InterventionForm = () => {
+  const { screen } = useAppContext() as Context;
+
   const formik = useFormik({
     initialValues: {
       customerId: '',
@@ -49,12 +52,13 @@ const InterventionForm = () => {
   );
 
   return (
-    <StyledContainer spacing="30px">
+    <Container spacing={50} direction="vertical" center={true}>
+      <Text variant="h3">{screen.label}</Text>
       {isSuccess && <ActionsFeedBack isValid={true} />}
-      <StyledForm onSubmit={formik.handleSubmit}>
-        <StyledLabel htmlFor="customerId">
+      <Form onSubmit={formik.handleSubmit}>
+        <Label htmlFor="customerId">
           <Text variant="h4">Client</Text>
-          <StyledSelect
+          <Select
             id="customerId"
             isValid={
               formik.touched.customerId ? !formik.errors.customerId : null
@@ -71,14 +75,14 @@ const InterventionForm = () => {
                 {customer.name} {customer.surname}
               </option>
             ))}
-          </StyledSelect>
+          </Select>
           {formik.touched.customerId && formik.errors.customerId && (
             <Text>{formik.errors.customerId}</Text>
           )}
-        </StyledLabel>
-        <StyledLabel htmlFor="contractId">
+        </Label>
+        <Label htmlFor="contractId">
           <Text variant="h4">Client</Text>
-          <StyledSelect
+          <Select
             id="contractId"
             isValid={
               formik.touched.contractId ? !formik.errors.contractId : null
@@ -95,14 +99,14 @@ const InterventionForm = () => {
                 {contract.description}
               </option>
             ))}
-          </StyledSelect>
+          </Select>
           {formik.touched.contractId && formik.errors.contractId && (
             <Text>{formik.errors.contractId}</Text>
           )}
-        </StyledLabel>
-        <StyledLabel htmlFor="date">
+        </Label>
+        <Label htmlFor="date">
           <Text variant="h4">Date</Text>
-          <StyledInput
+          <Input
             id="date"
             type="date"
             isValid={formik.touched.date ? !formik.errors.date : null}
@@ -111,10 +115,10 @@ const InterventionForm = () => {
           {formik.touched.date && formik.errors.date && (
             <Text>{formik.errors.date}</Text>
           )}
-        </StyledLabel>
-        <StyledLabel htmlFor="quantity">
+        </Label>
+        <Label htmlFor="quantity">
           <Text variant="h4">Quantité</Text>
-          <StyledInput
+          <Input
             id="quantity"
             type="number"
             isValid={formik.touched.quantity ? !formik.errors.quantity : null}
@@ -123,8 +127,8 @@ const InterventionForm = () => {
           {formik.touched.quantity && formik.errors.quantity && (
             <Text>{formik.errors.quantity}</Text>
           )}
-        </StyledLabel>
-        <StyledSubmit
+        </Label>
+        <Submit
           type="submit"
           value="Créer"
           isValid={
@@ -138,8 +142,8 @@ const InterventionForm = () => {
             !formik.errors.quantity
           }
         />
-      </StyledForm>
-    </StyledContainer>
+      </Form>
+    </Container>
   );
 };
 

@@ -1,13 +1,7 @@
 // Use.
 import { useFormik } from 'formik';
 import { SignInFormValidator } from '../../util';
-import {
-  StyledForm,
-  StyledLabel,
-  StyledInput,
-  StyledSubmit,
-  Text,
-} from '../../ui';
+import { Form, Label, Input, Submit, Text } from '../../ui';
 
 /**
  * Provide screen SignInForm.
@@ -26,10 +20,10 @@ const SignInForm = () => {
 
   return (
     <div>
-      <StyledForm onSubmit={formik.handleSubmit}>
-        <StyledLabel htmlFor="id">
+      <Form onSubmit={formik.handleSubmit}>
+        <Label htmlFor="id">
           <Text variant="h4">Identifiant</Text>
-          <StyledInput
+          <Input
             id="id"
             type="text"
             isValid={formik.touched.id ? !formik.errors.id : null}
@@ -38,10 +32,10 @@ const SignInForm = () => {
           {formik.touched.id && formik.errors.id && (
             <Text>{formik.errors.id}</Text>
           )}
-        </StyledLabel>
-        <StyledLabel htmlFor="password">
+        </Label>
+        <Label htmlFor="password">
           <Text variant="h4">Mot de passe</Text>
-          <StyledInput
+          <Input
             id="password"
             type="password"
             isValid={formik.touched.password ? !formik.errors.password : null}
@@ -50,8 +44,8 @@ const SignInForm = () => {
           {formik.touched.password && formik.errors.password && (
             <Text>{formik.errors.password}</Text>
           )}
-        </StyledLabel>
-        <StyledSubmit
+        </Label>
+        <Submit
           type="submit"
           value="Envoyer"
           isValid={
@@ -61,7 +55,7 @@ const SignInForm = () => {
             !formik.errors.password
           }
         />
-      </StyledForm>
+      </Form>
     </div>
   );
 };

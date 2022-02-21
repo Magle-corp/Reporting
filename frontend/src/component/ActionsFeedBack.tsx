@@ -1,35 +1,27 @@
 // Use.
-import styled from 'styled-components';
-import { Text } from '../ui';
+import { Text, Container } from '../ui';
 
 interface Props {
   isValid: boolean;
 }
 
-const StyledContainer = styled.div`
-  background-color: lightcoral;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  max-width: 500px;
-  padding: 20px;
-  margin: 0 auto;
-`;
-
 /**
  * Provide component ActionsFeedBack.
+ *
+ * @param isValid
+ *    boolean, depend on the form submission status.
  */
 const ActionsFeedBack = ({ isValid }: Props) => {
   return (
     <>
       {isValid ? (
-        <StyledContainer>
-          <Text variant="h4">Enregistré</Text>
-        </StyledContainer>
+        <Container direction="horizontal">
+          <Text>Enregistré</Text>
+        </Container>
       ) : (
-        <StyledContainer>
+        <Container direction="horizontal">
           <Text>Un problème est survenu</Text>
-        </StyledContainer>
+        </Container>
       )}
     </>
   );

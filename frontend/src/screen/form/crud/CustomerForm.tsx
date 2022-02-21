@@ -1,22 +1,18 @@
 // Use.
 import { useFormik } from 'formik';
 import { useMutation } from 'react-query';
+import { useAppContext } from '../../../context';
 import { CustomerFormValidator, postItem } from '../../../util';
-import { Customer } from '../../../type';
+import { Context, Customer } from '../../../type';
 import { ActionsFeedBack } from '../../../component';
-import {
-  StyledContainer,
-  StyledForm,
-  StyledInput,
-  StyledLabel,
-  StyledSubmit,
-  Text,
-} from '../../../ui';
+import { Container, Form, Input, Label, Submit, Text } from '../../../ui';
 
 /**
  * Provide screen CustomerForm.
  */
 const CustomerForm = () => {
+  const { screen } = useAppContext() as Context;
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -33,12 +29,13 @@ const CustomerForm = () => {
   });
 
   return (
-    <StyledContainer spacing="30px">
+    <Container spacing={50} direction="vertical" center={true}>
+      <Text variant="h3">{screen.label}</Text>
       {isSuccess && <ActionsFeedBack isValid={true} />}
-      <StyledForm onSubmit={formik.handleSubmit}>
-        <StyledLabel htmlFor="name">
+      <Form onSubmit={formik.handleSubmit}>
+        <Label htmlFor="name">
           <Text variant="h4">Nom</Text>
-          <StyledInput
+          <Input
             id="name"
             type="text"
             isValid={formik.touched.name ? !formik.errors.name : null}
@@ -47,10 +44,10 @@ const CustomerForm = () => {
           {formik.touched.name && formik.errors.name && (
             <Text>{formik.errors.name}</Text>
           )}
-        </StyledLabel>
-        <StyledLabel htmlFor="surname">
+        </Label>
+        <Label htmlFor="surname">
           <Text variant="h4">Prénom</Text>
-          <StyledInput
+          <Input
             id="surname"
             type="text"
             isValid={formik.touched.surname ? !formik.errors.surname : null}
@@ -59,8 +56,8 @@ const CustomerForm = () => {
           {formik.touched.surname && formik.errors.surname && (
             <Text>{formik.errors.surname}</Text>
           )}
-        </StyledLabel>
-        <StyledSubmit
+        </Label>
+        <Submit
           type="submit"
           value="Créer"
           isValid={
@@ -70,8 +67,8 @@ const CustomerForm = () => {
             !formik.errors.surname
           }
         />
-      </StyledForm>
-    </StyledContainer>
+      </Form>
+    </Container>
   );
 };
 

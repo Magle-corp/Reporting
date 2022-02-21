@@ -3,8 +3,11 @@ import styled, { css } from 'styled-components';
 
 /**
  * Provide ui component TextArea.
+ *
+ * @param isValid
+ *    boolean | null, depend on the form state.
  */
-const StyledTextArea = styled.textarea<{ isValid: boolean | null }>`
+const TextArea = styled.textarea<{ isValid: boolean | null }>`
   box-sizing: border-box;
   ${({ theme }) => theme.typography.p};
   max-width: 400px;
@@ -32,4 +35,4 @@ const StyledTextArea = styled.textarea<{ isValid: boolean | null }>`
     `}
 `;
 
-export { StyledTextArea };
+export { TextArea };

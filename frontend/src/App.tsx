@@ -1,13 +1,6 @@
 // Use.
 import { useAppContext } from './context';
 import { Context } from './type';
-import {
-  ItemOverView,
-  SignInForm,
-  ContractForm,
-  CustomerForm,
-  InterventionForm,
-} from './screen';
 import { Navbar } from './component';
 import { Layout } from './ui';
 
@@ -17,11 +10,7 @@ const App = () => {
   return (
     <Layout>
       <Navbar />
-      {screen.search('overview') !== -1 && <ItemOverView />}
-      {screen === 'signin' && <SignInForm />}
-      {screen === 'add_contract' && <ContractForm />}
-      {screen === 'add_customer' && <CustomerForm />}
-      {screen === 'add_intervention' && <InterventionForm />}
+      {screen.component}
     </Layout>
   );
 };

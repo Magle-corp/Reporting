@@ -1,6 +1,9 @@
 // Use.
 import * as Yup from 'yup';
 
+/**
+ * Formik + Yup validator schema form Contract form.
+ */
 const ContractFormValidator = Yup.object({
   customerId: Yup.string().required('champ requis'),
   contractTypeId: Yup.string().required('champ requis'),

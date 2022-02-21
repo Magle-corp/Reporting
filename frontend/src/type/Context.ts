@@ -1,13 +1,12 @@
+// Use.
+import { Screen } from './Screen';
+
 // Type for custom React context.
 
 interface Context {
-  screen:
-    | 'signin'
-    | 'overview'
-    | 'add_contract'
-    | 'add_customer'
-    | 'add_intervention';
+  screen: Screen;
   setScreen: Function;
+  availableScreens: Screen[];
 }
 
 export type { Context };
