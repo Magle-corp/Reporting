@@ -1,9 +1,11 @@
 // Type for entity Contract.
 
 interface Contract {
-  id: number;
+  id?: number;
+  customerId: string;
+  contractTypeId: string;
   description: string;
-  rate: number;
+  rate: string;
 }
 
 export type { Contract };

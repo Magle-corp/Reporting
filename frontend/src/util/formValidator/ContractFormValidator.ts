@@ -2,8 +2,8 @@
 import * as Yup from 'yup';
 
 const ContractFormValidator = Yup.object({
-  customer: Yup.string().required('champ requis'),
-  contractType: Yup.string().required('champ requis'),
+  customerId: Yup.string().required('champ requis'),
+  contractTypeId: Yup.string().required('champ requis'),
   description: Yup.string()
     .min(3, 'minimum 3 caractères')
     .max(40, 'maximum 40 caractères')

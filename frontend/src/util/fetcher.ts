@@ -1,6 +1,6 @@
 // Use.
 import axios from 'axios';
-import { Customer } from '../type';
+import { Customer, Contract } from '../type';
 
 const fetcher = axios.create({
   baseURL: 'http://localhost:8080/api',
@@ -15,9 +15,8 @@ const getItems = (url: string) => {
   return fetcher.get(url);
 };
 
-const postItem = (url: string, values: Customer) => {
-  const data = JSON.stringify(values);
-  return fetcher.post(url, data);
+const postItem = (url: string, values: Customer | Contract) => {
+  return fetcher.post(url, values);
 };
 
 export { getItems, postItem };

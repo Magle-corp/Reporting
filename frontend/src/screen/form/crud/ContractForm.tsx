@@ -1,9 +1,8 @@
 // Use.
-import { useQuery } from 'react-query';
 import { useFormik } from 'formik';
-import { getItems } from '../../../util/fetcher';
-import { ContractFormValidator } from '../../../util';
-import { Customer, ContractTypes } from '../../../type';
+import { useQuery, useMutation } from 'react-query';
+import { ContractFormValidator, getItems, postItem } from '../../../util';
+import { Contract, Customer, ContractTypes } from '../../../type';
 import {
   StyledForm,
   StyledInput,
@@ -19,16 +18,22 @@ import {
 const ContractForm = () => {
   const formik = useFormik({
     initialValues: {
-      customer: '',
-      contractType: '',
+      customerId: '',
+      contractTypeId: '',
       description: '',
       rate: '',
     },
     validationSchema: ContractFormValidator,
     onSubmit: (values) => {
-      console.log(values);
+      mutate(values);
     },
   });
+
+  const { mutate, isSuccess, isError } = useMutation(
+    async (values: Contract) => {
+      await postItem('/contracts', values);
+    }
+  );
 
   const { data: dataCustomers } = useQuery('customers', () =>
     getItems('/customers')
@@ -42,50 +47,56 @@ const ContractForm = () => {
 
   return (
     <div>
+      {isSuccess && <p>SUCCES</p>}
+      {isError && <p>ERROR</p>}
       <StyledForm onSubmit={formik.handleSubmit}>
-        <StyledLabel htmlFor="customer">
+        <StyledLabel htmlFor="customerId">
           <Text variant="h4">Client</Text>
           <StyledSelect
-            id="customer"
-            isValid={formik.touched.customer ? !formik.errors.customer : null}
-            {...formik.getFieldProps('customer')}
+            id="customerId"
+            isValid={
+              formik.touched.customerId ? !formik.errors.customerId : null
+            }
+            {...formik.getFieldProps('customerId')}
           >
             <option value="default">selectionner un client</option>
             {customers.map((customer) => (
               <option
                 key={customer.name + '_' + Math.random() * 10}
-                value={customer.id}
+                value={`/api/customers/${customer.id}`}
                 label={customer.name}
               >
                 {customer.name} {customer.surname}
               </option>
             ))}
           </StyledSelect>
-          {formik.touched.customer && formik.errors.customer && (
-            <Text>{formik.errors.customer}</Text>
+          {formik.touched.customerId && formik.errors.customerId && (
+            <Text>{formik.errors.customerId}</Text>
           )}
         </StyledLabel>
-        <StyledLabel htmlFor="contractType">
+        <StyledLabel htmlFor="contractTypeId">
           <Text variant="h4">Type de contract</Text>
           <StyledSelect
-            id="contractType"
+            id="contractTypeId"
             isValid={
-              formik.touched.contractType ? !formik.errors.contractType : null
+              formik.touched.contractTypeId
+                ? !formik.errors.contractTypeId
+                : null
             }
-            {...formik.getFieldProps('contractType')}
+            {...formik.getFieldProps('contractTypeId')}
           >
             <option value="default">selectionner un type de contrat</option>
             {contractTypes.map((contractType) => (
               <option
                 key={contractType.title + '_' + Math.random() * 10}
-                value={contractType.id}
+                value={`/api/contract_types/${contractType.id}`}
               >
                 {contractType.title} - {contractType.description}
               </option>
             ))}
           </StyledSelect>
-          {formik.touched.contractType && formik.errors.contractType && (
-            <Text>{formik.errors.contractType}</Text>
+          {formik.touched.contractTypeId && formik.errors.contractTypeId && (
+            <Text>{formik.errors.contractTypeId}</Text>
           )}
         </StyledLabel>
         <StyledLabel htmlFor="description">
@@ -118,10 +129,10 @@ const ContractForm = () => {
           type="submit"
           value="Envoyer"
           isValid={
-            formik.touched.customer &&
-            !formik.errors.customer &&
-            formik.touched.contractType &&
-            !formik.errors.contractType &&
+            formik.touched.customerId &&
+            !formik.errors.customerId &&
+            formik.touched.contractTypeId &&
+            !formik.errors.contractTypeId &&
             formik.touched.description &&
             !formik.errors.description &&
             formik.touched.rate &&
