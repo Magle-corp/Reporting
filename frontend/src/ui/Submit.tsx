@@ -5,12 +5,7 @@ import styled, { css } from 'styled-components';
  * Provide ui component Submit.
  */
 const StyledSubmit = styled.input<{ isValid: boolean | undefined }>`
-  ${({ theme }) => theme.typography.p};
-  box-sizing: border-box;
-  width: max-content;
-  padding: 6px 8px;
-  background-color: ${({ theme }) => theme.color.white};
-  border-radius: 3px;
+  ${({ theme }) => theme.typography.button};
 
   ${({ isValid }) =>
     isValid &&

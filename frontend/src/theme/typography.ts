@@ -47,6 +47,21 @@ const variant: object = {
     text-decoration: none;
     color: ${colors.black};
 `,
+  button: `
+    ${fontFamily}
+    box-sizing: border-box;
+    width: max-content;
+    padding: 6px 8px;
+    background-color: white;
+    border: 2px solid #222222;
+    border-radius: 3px;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 400;
+    text-decoration: none;
+    color: ${colors.black};
+    cursor: pointer;
+`,
 };
 
 export default variant;

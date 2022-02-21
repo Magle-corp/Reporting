@@ -2,6 +2,7 @@
 import { useAppContext } from './context';
 import { Context } from './type';
 import {
+  ItemOverView,
   SignInForm,
   ContractForm,
   CustomerForm,
@@ -16,6 +17,7 @@ const App = () => {
   return (
     <Layout>
       <Navbar />
+      {screen.search('overview') !== -1 && <ItemOverView />}
       {screen === 'signin' && <SignInForm />}
       {screen === 'add_contract' && <ContractForm />}
       {screen === 'add_customer' && <CustomerForm />}

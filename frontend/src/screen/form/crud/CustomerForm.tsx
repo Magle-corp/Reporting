@@ -49,7 +49,7 @@ const CustomerForm = () => {
           )}
         </StyledLabel>
         <StyledLabel htmlFor="surname">
-          <Text variant="h4">Nom</Text>
+          <Text variant="h4">Prénom</Text>
           <StyledInput
             id="surname"
             type="text"

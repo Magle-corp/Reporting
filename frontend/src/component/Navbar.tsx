@@ -1,5 +1,4 @@
 // Use.
-import { MouseEvent } from 'react';
 import styled from 'styled-components';
 import { useAppContext } from '../context';
 import { Context } from '../type';
@@ -16,37 +15,40 @@ const StyledNavbar = styled.nav`
   }
 `;
 
+const StyledList = styled.ul`
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+
+  > *:not(:first-child) {
+    margin-left: 30px;
+  }
+`;
+
 /**
  * Provide component Navbar.
  */
 const Navbar = () => {
   const { setScreen } = useAppContext() as Context;
 
-  const handleNavigation = (event: MouseEvent<HTMLElement>, screen: string) => {
-    event.preventDefault();
-    setScreen(screen);
-  };
+  const screens = ['intervention', 'contract', 'customer'];
 
   return (
     <StyledNavbar>
-      <div
-        onClick={(event) => handleNavigation(event, 'interventions')}
-        id="interventions"
-      >
-        <Text variant="h4">Interventions</Text>
-      </div>
-      <div
-        onClick={(event) => handleNavigation(event, 'contracts')}
-        id="interventions"
-      >
-        <Text variant="h4">Contrats</Text>
-      </div>
-      <div
-        onClick={(event) => handleNavigation(event, 'customers')}
-        id="interventions"
-      >
-        <Text variant="h4">Clients</Text>
-      </div>
+      <StyledList>
+        {screens.map((screen) => (
+          <li
+            key={screen + '_' + Math.random() * 10}
+            onClick={() => {
+              setScreen(`overview_${screen}`);
+            }}
+          >
+            <Text as="span" variant="h4">
+              {screen}
+            </Text>
+          </li>
+        ))}
+      </StyledList>
     </StyledNavbar>
   );
 };
