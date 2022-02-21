@@ -3,7 +3,9 @@ import { useFormik } from 'formik';
 import { useQuery, useMutation } from 'react-query';
 import { InterventionFormValidator, getItems, postItem } from '../../../util';
 import { Intervention, Customer, Contract } from '../../../type';
+import { ActionsFeedBack } from '../../../component';
 import {
+  StyledContainer,
   StyledForm,
   StyledInput,
   StyledLabel,
@@ -27,7 +29,6 @@ const InterventionForm = () => {
     onSubmit: (values) => {
       values.quantity = values.quantity.toString();
       mutate(values);
-      reset();
     },
   });
 
@@ -41,16 +42,15 @@ const InterventionForm = () => {
   );
   const contracts = (dataContracts?.data as Contract[]) || [];
 
-  const { mutate, isSuccess, isError, reset } = useMutation(
+  const { mutate, isSuccess, reset } = useMutation(
     async (values: Intervention) => {
       await postItem('/interventions', values);
     }
   );
 
   return (
-    <div>
-      {isSuccess && <p>SUCCES</p>}
-      {isError && <p>ERROR</p>}
+    <StyledContainer spacing="30px">
+      {isSuccess && <ActionsFeedBack isValid={true} />}
       <StyledForm onSubmit={formik.handleSubmit}>
         <StyledLabel htmlFor="customerId">
           <Text variant="h4">Client</Text>
@@ -139,7 +139,7 @@ const InterventionForm = () => {
           }
         />
       </StyledForm>
-    </div>
+    </StyledContainer>
   );
 };
 

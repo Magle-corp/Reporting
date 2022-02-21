@@ -3,7 +3,9 @@ import { useFormik } from 'formik';
 import { useMutation } from 'react-query';
 import { CustomerFormValidator, postItem } from '../../../util';
 import { Customer } from '../../../type';
+import { ActionsFeedBack } from '../../../component';
 import {
+  StyledContainer,
   StyledForm,
   StyledInput,
   StyledLabel,
@@ -23,20 +25,16 @@ const CustomerForm = () => {
     validationSchema: CustomerFormValidator,
     onSubmit: (values) => {
       mutate(values);
-      reset();
     },
   });
 
-  const { mutate, isSuccess, isError, reset } = useMutation(
-    async (values: Customer) => {
-      await postItem('/customers', values);
-    }
-  );
+  const { mutate, isSuccess, reset } = useMutation(async (values: Customer) => {
+    await postItem('/customers', values);
+  });
 
   return (
-    <div>
-      {isSuccess && <p>SUCCES</p>}
-      {isError && <p>ERROR</p>}
+    <StyledContainer spacing="30px">
+      {isSuccess && <ActionsFeedBack isValid={true} />}
       <StyledForm onSubmit={formik.handleSubmit}>
         <StyledLabel htmlFor="name">
           <Text variant="h4">Nom</Text>
@@ -73,7 +71,7 @@ const CustomerForm = () => {
           }
         />
       </StyledForm>
-    </div>
+    </StyledContainer>
   );
 };
 

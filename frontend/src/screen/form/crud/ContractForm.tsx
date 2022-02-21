@@ -3,7 +3,9 @@ import { useFormik } from 'formik';
 import { useQuery, useMutation } from 'react-query';
 import { ContractFormValidator, getItems, postItem } from '../../../util';
 import { Contract, Customer, ContractType } from '../../../type';
+import { ActionsFeedBack } from '../../../component';
 import {
+  StyledContainer,
   StyledForm,
   StyledInput,
   StyledLabel,
@@ -27,15 +29,12 @@ const ContractForm = () => {
     onSubmit: (values) => {
       values.rate = values.rate.toString();
       mutate(values);
-      reset();
     },
   });
 
-  const { mutate, isSuccess, isError, reset } = useMutation(
-    async (values: Contract) => {
-      await postItem('/contracts', values);
-    }
-  );
+  const { mutate, isSuccess, reset } = useMutation(async (values: Contract) => {
+    await postItem('/contracts', values);
+  });
 
   const { data: dataCustomers } = useQuery('customers', () =>
     getItems('/customers')
@@ -48,9 +47,8 @@ const ContractForm = () => {
   const contractTypes = (dataContractTypes?.data as ContractType[]) || [];
 
   return (
-    <div>
-      {isSuccess && <p>SUCCES</p>}
-      {isError && <p>ERROR</p>}
+    <StyledContainer spacing="30px">
+      {isSuccess && <ActionsFeedBack isValid={true} />}
       <StyledForm onSubmit={formik.handleSubmit}>
         <StyledLabel htmlFor="customerId">
           <Text variant="h4">Client</Text>
@@ -142,7 +140,7 @@ const ContractForm = () => {
           }
         />
       </StyledForm>
-    </div>
+    </StyledContainer>
   );
 };
 
