@@ -30,7 +30,7 @@ const SignInForm = () => {
             {...formik.getFieldProps('id')}
           />
           {formik.touched.id && formik.errors.id && (
-            <Text>{formik.errors.id}</Text>
+            <Text variant="p">{formik.errors.id}</Text>
           )}
         </Label>
         <Label htmlFor="password">
@@ -42,7 +42,7 @@ const SignInForm = () => {
             {...formik.getFieldProps('password')}
           />
           {formik.touched.password && formik.errors.password && (
-            <Text>{formik.errors.password}</Text>
+            <Text variant="p">{formik.errors.password}</Text>
           )}
         </Label>
         <Submit

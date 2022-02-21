@@ -77,7 +77,7 @@ const InterventionForm = () => {
             ))}
           </Select>
           {formik.touched.customerId && formik.errors.customerId && (
-            <Text>{formik.errors.customerId}</Text>
+            <Text variant="p">{formik.errors.customerId}</Text>
           )}
         </Label>
         <Label htmlFor="contractId">
@@ -101,7 +101,7 @@ const InterventionForm = () => {
             ))}
           </Select>
           {formik.touched.contractId && formik.errors.contractId && (
-            <Text>{formik.errors.contractId}</Text>
+            <Text variant="p">{formik.errors.contractId}</Text>
           )}
         </Label>
         <Label htmlFor="date">
@@ -113,7 +113,7 @@ const InterventionForm = () => {
             {...formik.getFieldProps('date')}
           />
           {formik.touched.date && formik.errors.date && (
-            <Text>{formik.errors.date}</Text>
+            <Text variant="p">{formik.errors.date}</Text>
           )}
         </Label>
         <Label htmlFor="quantity">
@@ -125,7 +125,7 @@ const InterventionForm = () => {
             {...formik.getFieldProps('quantity')}
           />
           {formik.touched.quantity && formik.errors.quantity && (
-            <Text>{formik.errors.quantity}</Text>
+            <Text variant="p">{formik.errors.quantity}</Text>
           )}
         </Label>
         <Submit

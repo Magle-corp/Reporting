@@ -1,3 +1,4 @@
+// Types.
 export type { Context } from './Context';
 export type { Contract } from './Contract';
 export type { ContractType } from './ContractType';

@@ -2,7 +2,7 @@
 import styled, { css } from 'styled-components';
 
 interface Props {
-  variant?: 'p' | 'h1' | 'h2' | 'h3' | 'h4';
+  variant: 'p' | 'h1' | 'h2' | 'h3' | 'h4';
 }
 
 /**

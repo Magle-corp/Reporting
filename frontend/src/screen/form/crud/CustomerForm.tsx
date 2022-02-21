@@ -42,7 +42,7 @@ const CustomerForm = () => {
             {...formik.getFieldProps('name')}
           />
           {formik.touched.name && formik.errors.name && (
-            <Text>{formik.errors.name}</Text>
+            <Text variant="p">{formik.errors.name}</Text>
           )}
         </Label>
         <Label htmlFor="surname">
@@ -54,7 +54,7 @@ const CustomerForm = () => {
             {...formik.getFieldProps('surname')}
           />
           {formik.touched.surname && formik.errors.surname && (
-            <Text>{formik.errors.surname}</Text>
+            <Text variant="p">{formik.errors.surname}</Text>
           )}
         </Label>
         <Submit

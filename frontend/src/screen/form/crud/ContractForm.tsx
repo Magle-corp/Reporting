@@ -75,7 +75,7 @@ const ContractForm = () => {
             ))}
           </Select>
           {formik.touched.customerId && formik.errors.customerId && (
-            <Text>{formik.errors.customerId}</Text>
+            <Text variant="p">{formik.errors.customerId}</Text>
           )}
         </Label>
         <Label htmlFor="contractTypeId">
@@ -100,7 +100,7 @@ const ContractForm = () => {
             ))}
           </Select>
           {formik.touched.contractTypeId && formik.errors.contractTypeId && (
-            <Text>{formik.errors.contractTypeId}</Text>
+            <Text variant="p">{formik.errors.contractTypeId}</Text>
           )}
         </Label>
         <Label htmlFor="description">
@@ -114,7 +114,7 @@ const ContractForm = () => {
             {...formik.getFieldProps('description')}
           />
           {formik.touched.description && formik.errors.description && (
-            <Text>{formik.errors.description}</Text>
+            <Text variant="p">{formik.errors.description}</Text>
           )}
         </Label>
         <Label htmlFor="rate">
@@ -126,7 +126,7 @@ const ContractForm = () => {
             {...formik.getFieldProps('rate')}
           />
           {formik.touched.rate && formik.errors.rate && (
-            <Text>{formik.errors.rate}</Text>
+            <Text variant="p">{formik.errors.rate}</Text>
           )}
         </Label>
         <Submit
