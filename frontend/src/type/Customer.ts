@@ -1,7 +1,7 @@
 // Type for entity Customer.
 
 interface Customer {
-  id: number;
+  id?: number;
   name: string;
   surname: string;
 }

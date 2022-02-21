@@ -1,6 +1,6 @@
 // Use.
 import { useFormik } from 'formik';
-import { CustomerFormValidator } from '../../../util';
+import { CustomerFormValidator, postItem } from '../../../util';
 import {
   StyledForm,
   StyledInput,
@@ -20,7 +20,7 @@ const CustomerForm = () => {
     },
     validationSchema: CustomerFormValidator,
     onSubmit: (values) => {
-      console.log(values);
+      postItem('/customers', values);
     },
   });
 
