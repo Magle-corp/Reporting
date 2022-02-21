@@ -4,19 +4,13 @@ import styled, { css } from 'styled-components';
 /**
  * Provide ui component Submit.
  */
-const StyledSubmit = styled.input<{ isValid: boolean | null }>`
+const StyledSubmit = styled.input<{ isValid: boolean | undefined }>`
   ${({ theme }) => theme.typography.p};
+  box-sizing: border-box;
   width: max-content;
   padding: 6px 8px;
   background-color: ${({ theme }) => theme.color.white};
   border-radius: 3px;
-
-  ${({ isValid }) =>
-    isValid === null &&
-    css`
-      border: 2px solid ${({ theme }) => theme.color.black};
-      cursor: not-allowed;
-    `};
 
   ${({ isValid }) =>
     isValid &&
@@ -28,7 +22,7 @@ const StyledSubmit = styled.input<{ isValid: boolean | null }>`
   ${({ isValid }) =>
     !isValid &&
     css`
-      border: 2px solid ${({ theme }) => theme.color.error};
+      border: 2px solid ${({ theme }) => theme.color.black};
       cursor: not-allowed;
     `};
 `;

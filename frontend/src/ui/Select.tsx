@@ -5,7 +5,10 @@ import styled, { css } from 'styled-components';
  * Provide ui component Select.
  */
 const StyledSelect = styled.select<{ isValid: boolean | null }>`
-  padding: 6px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  margin: 15px 0 10px 0;
   border: 2px solid ${({ theme }) => theme.color.black};
   border-radius: 3px;
   background-color: ${({ theme }) => theme.color.white};

@@ -11,6 +11,7 @@ interface Props {
 
 const StyledText = styled.p<{ variant: string }>`
   ${({ theme, variant }) => theme.typography[variant]}
+  box-sizing: border-box;
 `;
 
 /**

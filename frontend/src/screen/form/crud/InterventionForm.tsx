@@ -27,6 +27,7 @@ const InterventionForm = () => {
     onSubmit: (values) => {
       values.quantity = values.quantity.toString();
       mutate(values);
+      reset();
     },
   });
 
@@ -40,7 +41,7 @@ const InterventionForm = () => {
   );
   const contracts = (dataContracts?.data as Contract[]) || [];
 
-  const { mutate, isSuccess, isError } = useMutation(
+  const { mutate, isSuccess, isError, reset } = useMutation(
     async (values: Intervention) => {
       await postItem('/interventions', values);
     }
@@ -135,8 +136,6 @@ const InterventionForm = () => {
             !formik.errors.date &&
             formik.touched.quantity &&
             !formik.errors.quantity
-              ? true
-              : null
           }
         />
       </StyledForm>

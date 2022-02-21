@@ -59,8 +59,6 @@ const SignInForm = () => {
             !formik.errors.id &&
             formik.touched.password &&
             !formik.errors.password
-              ? true
-              : null
           }
         />
       </StyledForm>

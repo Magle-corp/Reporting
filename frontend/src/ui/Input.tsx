@@ -6,7 +6,8 @@ import styled, { css } from 'styled-components';
  */
 const StyledInput = styled.input<{ isValid: boolean | null }>`
   ${({ theme }) => theme.typography.p};
-  max-width: 400px;
+  box-sizing: border-box;
+  width: 100%;
   padding: 4px;
   margin: 15px 0 10px 0;
   border-radius: 3px;

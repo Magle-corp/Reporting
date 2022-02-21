@@ -23,10 +23,11 @@ const CustomerForm = () => {
     validationSchema: CustomerFormValidator,
     onSubmit: (values) => {
       mutate(values);
+      reset();
     },
   });
 
-  const { mutate, isSuccess, isError } = useMutation(
+  const { mutate, isSuccess, isError, reset } = useMutation(
     async (values: Customer) => {
       await postItem('/customers', values);
     }
@@ -69,8 +70,6 @@ const CustomerForm = () => {
             !formik.errors.name &&
             formik.touched.surname &&
             !formik.errors.surname
-              ? true
-              : null
           }
         />
       </StyledForm>

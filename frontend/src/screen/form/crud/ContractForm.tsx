@@ -27,10 +27,11 @@ const ContractForm = () => {
     onSubmit: (values) => {
       values.rate = values.rate.toString();
       mutate(values);
+      reset();
     },
   });
 
-  const { mutate, isSuccess, isError } = useMutation(
+  const { mutate, isSuccess, isError, reset } = useMutation(
     async (values: Contract) => {
       await postItem('/contracts', values);
     }
@@ -138,8 +139,6 @@ const ContractForm = () => {
             !formik.errors.description &&
             formik.touched.rate &&
             !formik.errors.rate
-              ? true
-              : null
           }
         />
       </StyledForm>
