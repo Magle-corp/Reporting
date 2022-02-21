@@ -1,9 +1,9 @@
 // Type for entity ContractTypes.
 
-interface ContractTypes {
+interface ContractType {
   id: number;
   title: string;
   description: string;
 }
 
-export type { ContractTypes };
+export type { ContractType };

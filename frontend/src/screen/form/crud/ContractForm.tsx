@@ -2,7 +2,7 @@
 import { useFormik } from 'formik';
 import { useQuery, useMutation } from 'react-query';
 import { ContractFormValidator, getItems, postItem } from '../../../util';
-import { Contract, Customer, ContractTypes } from '../../../type';
+import { Contract, Customer, ContractType } from '../../../type';
 import {
   StyledForm,
   StyledInput,
@@ -44,7 +44,7 @@ const ContractForm = () => {
   const { data: dataContractTypes } = useQuery('contract_types', () =>
     getItems('/contract_types')
   );
-  const contractTypes = (dataContractTypes?.data as ContractTypes[]) || [];
+  const contractTypes = (dataContractTypes?.data as ContractType[]) || [];
 
   return (
     <div>
