@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useAppContext } from '../context';
 import { Context } from '../type';
 import { Text } from '../ui';
+import { Broom, Contract, Customer } from '../theme/icon';
 
 const StyledNavbar = styled.nav`
   display: flex;
@@ -25,28 +26,51 @@ const StyledList = styled.ul`
   }
 `;
 
+const StyledListItem = styled.li`
+  > *:not(:first-child) {
+    margin-left: 10px;
+  }
+`;
+
 /**
  * Provide component Navbar.
  */
 const Navbar = () => {
   const { setScreen } = useAppContext() as Context;
 
-  const screens = ['intervention', 'contract', 'customer'];
+  const screens = [
+    {
+      label: 'Clients',
+      route: 'customer',
+      icon: <Customer size={20} />,
+    },
+    {
+      label: 'Contrats',
+      route: 'contract',
+      icon: <Contract size={20} />,
+    },
+    {
+      label: 'Interventions',
+      route: 'intervention',
+      icon: <Broom size={25} />,
+    },
+  ];
 
   return (
     <StyledNavbar>
       <StyledList>
         {screens.map((screen) => (
-          <li
-            key={screen + '_' + Math.random() * 10}
+          <StyledListItem
+            key={screen.label + '_' + Math.random() * 10}
             onClick={() => {
-              setScreen(`overview_${screen}`);
+              setScreen(`overview_${screen.route}`);
             }}
           >
+            {screen.icon}
             <Text as="span" variant="h4">
-              {screen}
+              {screen.label}
             </Text>
-          </li>
+          </StyledListItem>
         ))}
       </StyledList>
     </StyledNavbar>
