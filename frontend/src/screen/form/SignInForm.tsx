@@ -1,6 +1,6 @@
 // Use.
 import { useFormik } from 'formik';
-import { SignInValidator } from '../../util';
+import { SignInFormValidator } from '../../util';
 import {
   StyledForm,
   StyledLabel,
@@ -18,7 +18,7 @@ const SignInForm = () => {
       id: '',
       password: '',
     },
-    validationSchema: SignInValidator,
+    validationSchema: SignInFormValidator,
     onSubmit: (values) => {
       console.log(values);
     },

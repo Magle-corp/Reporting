@@ -1,2 +1,3 @@
 export { ContractFormValidator } from './formValidator/ContractFormValidator';
-export { SignInValidator } from './formValidator/SignInValidator';
+export { CustomerFormValidator } from './formValidator/CustomerFormValidator';
+export { SignInFormValidator } from './formValidator/SignInFormValidator';

@@ -12,7 +12,7 @@ const AppContext = createContext();
  * Custom React context.
  */
 export function AppWrapper({ children }: Props) {
-  const [screen, setScreen] = useState<string>('add_contract');
+  const [screen, setScreen] = useState<string>('add_customer');
 
   // States shared over the application.
   let sharedState = {
