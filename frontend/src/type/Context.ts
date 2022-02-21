@@ -2,7 +2,7 @@
 
 interface Context {
   screen: 'signin' | 'add_contract' | 'add_customer' | 'add_intervention';
-  setScree: Function;
+  setScreen: Function;
 }
 
 export type { Context };

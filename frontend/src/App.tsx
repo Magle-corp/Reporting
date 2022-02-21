@@ -7,6 +7,7 @@ import {
   CustomerForm,
   InterventionForm,
 } from './screen';
+import { Navbar } from './component';
 import { Layout } from './ui';
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
 
   return (
     <Layout>
+      <Navbar />
       {screen === 'signin' && <SignInForm />}
       {screen === 'add_contract' && <ContractForm />}
       {screen === 'add_customer' && <CustomerForm />}

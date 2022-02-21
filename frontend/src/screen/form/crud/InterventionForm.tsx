@@ -126,7 +126,7 @@ const InterventionForm = () => {
         </StyledLabel>
         <StyledSubmit
           type="submit"
-          value="Envoyer"
+          value="Créer"
           isValid={
             formik.touched.customerId &&
             !formik.errors.customerId &&

@@ -11,6 +11,10 @@ interface Props {
 const StyledLayout = styled.div<{ variant?: string }>`
   box-sizing: border-box;
   width: 100%;
+
+  > * {
+    margin-top: 30px;
+  }
 `;
 
 /**

@@ -62,7 +62,7 @@ const CustomerForm = () => {
         </StyledLabel>
         <StyledSubmit
           type="submit"
-          value="Envoyer"
+          value="Créer"
           isValid={
             formik.touched.name &&
             !formik.errors.name &&
