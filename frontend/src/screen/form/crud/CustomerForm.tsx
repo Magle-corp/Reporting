@@ -16,7 +16,7 @@ import { Container, Form, Input, Label, Submit, Text } from '../../../ui';
  * Provide screen CustomerForm.
  */
 const CustomerForm = () => {
-  const { screen, setScreen, availableScreens } = useAppContext() as Context;
+  const { screen, setScreen, authorizedScreens } = useAppContext() as Context;
 
   const formik = useFormik({
     initialValues: {
@@ -37,7 +37,7 @@ const CustomerForm = () => {
     event.preventDefault();
     formik.handleSubmit();
     reset();
-    setScreen(getScreensByRoute(screen, availableScreens, ['overview'])[0]);
+    setScreen(getScreensByRoute(screen, authorizedScreens, ['overview'])[0]);
   };
 
   const handleSaveContinue = (event: MouseEvent<HTMLElement>) => {

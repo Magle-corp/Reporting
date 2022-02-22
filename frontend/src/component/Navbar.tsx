@@ -9,8 +9,8 @@ import { Text } from '../ui';
  * Provide component Navbar.
  */
 const Navbar = () => {
-  const { setScreen, availableScreens } = useAppContext() as Context;
-  const itemMenus = getScreensByArgs(availableScreens, ['overview']);
+  const { setScreen, authorizedScreens } = useAppContext() as Context;
+  const itemMenus = getScreensByArgs(authorizedScreens, ['overview']);
 
   return (
     <StyledNavbar>

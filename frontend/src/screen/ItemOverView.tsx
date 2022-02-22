@@ -8,8 +8,8 @@ import { Text, Container } from '../ui';
  * Provide screen ItemOverView.
  */
 const ItemOverView = () => {
-  const { screen, setScreen, availableScreens } = useAppContext() as Context;
-  const itemMenus = getScreensByRoute(screen, availableScreens, [
+  const { screen, setScreen, authorizedScreens } = useAppContext() as Context;
+  const itemMenus = getScreensByRoute(screen, authorizedScreens, [
     'list',
     'add',
   ]);

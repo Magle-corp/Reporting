@@ -25,7 +25,7 @@ import {
  * Provide screen ContractForm.
  */
 const ContractForm = () => {
-  const { screen, setScreen, availableScreens } = useAppContext() as Context;
+  const { screen, setScreen, authorizedScreens } = useAppContext() as Context;
 
   const { data: dataCustomers } = useQuery('customers', () =>
     getItems('/customers')
@@ -59,7 +59,7 @@ const ContractForm = () => {
     event.preventDefault();
     formik.handleSubmit();
     reset();
-    setScreen(getScreensByRoute(screen, availableScreens, ['overview'])[0]);
+    setScreen(getScreensByRoute(screen, authorizedScreens, ['overview'])[0]);
   };
 
   const handleSaveContinue = (event: MouseEvent<HTMLElement>) => {
