@@ -5,6 +5,7 @@ import {
   CustomerForm,
   ContractForm,
   InterventionForm,
+  SignInForm,
 } from './screen';
 import { Broom, Contract, Customer } from './theme/icon';
 
@@ -12,6 +13,12 @@ import { Broom, Contract, Customer } from './theme/icon';
  * Navigation items.
  */
 const availableScreens: Context['availableScreens'] = [
+  {
+    label: 'Connexion',
+    route: 'signin',
+    args: 'overview',
+    component: <SignInForm />,
+  },
   {
     label: 'Clients',
     route: 'customer',

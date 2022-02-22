@@ -1,36 +1,48 @@
 // Use.
 import { useFormik } from 'formik';
-import { SignInFormValidator } from '../../util';
-import { Form, Label, Input, Submit, Text } from '../../ui';
+import { useMutation } from 'react-query';
+import { useAppContext } from '../../context';
+import { SignInFormValidator, postItem } from '../../util';
+import { User, Context } from '../../type';
+import { Form, Label, Input, Submit, Text, Container } from '../../ui';
 
 /**
  * Provide screen SignInForm.
  */
 const SignInForm = () => {
+  const { screen } = useAppContext() as Context;
+
   const formik = useFormik({
     initialValues: {
-      id: '',
+      email: '',
       password: '',
     },
     validationSchema: SignInFormValidator,
     onSubmit: (values) => {
-      console.log(values);
+      mutate(values);
     },
   });
 
+  const { mutate, reset } = useMutation(async (values: User) => {
+    // await postItem('/login', values);
+    console.log(values);
+    reset();
+  });
+
   return (
-    <div>
+    <Container spacing={50} direction="vertical" center={true}>
+      <Text variant="h3">{screen.label}</Text>
       <Form onSubmit={formik.handleSubmit}>
-        <Label htmlFor="id">
+        <Label htmlFor="email">
           <Text variant="h4">Identifiant</Text>
           <Input
-            id="id"
+            id="email"
             type="text"
-            isValid={formik.touched.id ? !formik.errors.id : null}
-            {...formik.getFieldProps('id')}
+            isValid={formik.touched.email ? !formik.errors.email : null}
+            {...formik.getFieldProps('email')}
           />
-          {formik.touched.id && formik.errors.id && (
-            <Text variant="p">{formik.errors.id}</Text>
+          {formik.touched.email && formik.errors.email && (
+            <Text variant="p">{formik.errors.email}</Text>
           )}
         </Label>
         <Label htmlFor="password">
@@ -47,16 +59,16 @@ const SignInForm = () => {
         </Label>
         <Submit
           type="submit"
-          value="Envoyer"
+          value="Se connecter"
           isValid={
-            formik.touched.id &&
-            !formik.errors.id &&
+            formik.touched.email &&
+            !formik.errors.email &&
             formik.touched.password &&
             !formik.errors.password
           }
         />
       </Form>
-    </div>
+    </Container>
   );
 };
 

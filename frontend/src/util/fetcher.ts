@@ -1,6 +1,6 @@
 // Use.
 import axios from 'axios';
-import { Customer, Contract, Intervention } from '../type';
+import { User, Customer, Contract, Intervention } from '../type';
 
 /**
  * Axios setting.
@@ -30,7 +30,10 @@ const getItems = (url: string) => {
  * @param values
  *    object, values for fetch body.
  */
-const postItem = (url: string, values: Customer | Contract | Intervention) => {
+const postItem = (
+  url: string,
+  values: User | Customer | Contract | Intervention
+) => {
   return fetcher.post(url, values);
 };
 

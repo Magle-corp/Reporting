@@ -5,7 +5,7 @@ import * as Yup from 'yup';
  * Formik + Yup validator schema form SignIn form.
  */
 const SignInFormValidator = Yup.object({
-  id: Yup.string()
+  email: Yup.string()
     .min(3, 'minimum 3 caractères')
     .max(25, 'maximum 25 caractères')
     .required('champ requis'),
