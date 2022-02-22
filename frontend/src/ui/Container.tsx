@@ -24,7 +24,7 @@ const Container = styled.div<{
     css`
       display: flex;
       flex-direction: row;
-      align-items: ${center ? 'center' : 'left'};
+      justify-content: ${center ? 'center' : 'left'};
 
       > *:not(:first-child) {
         margin-left: ${spacing}px;
@@ -36,7 +36,7 @@ const Container = styled.div<{
     css`
       display: flex;
       flex-direction: column;
-      justify-content: ${center ? 'center' : 'left'};
+      align-items: ${center ? 'center' : 'left'};
 
       > *:not(:first-child) {
         margin-top: ${spacing}px;

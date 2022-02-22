@@ -60,6 +60,8 @@ const StyledList = styled.ul`
 `;
 
 const StyledListItem = styled.li`
+  cursor: pointer;
+
   > *:not(:first-child) {
     margin-left: 10px;
   }
