@@ -6,7 +6,7 @@ import { ReactNode } from 'react';
 interface Screen {
   label: string;
   route: 'homepage' | 'signin' | 'contract' | 'customer' | 'intervention';
-  args: 'overview' | 'add' | 'list';
+  args?: 'overview' | 'add' | 'list';
   authenticated: boolean;
   component: ReactNode;
   icon?: ReactNode;
