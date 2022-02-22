@@ -1,8 +1,14 @@
 // Use.
+import { MouseEvent } from 'react';
 import { useFormik } from 'formik';
 import { useQuery, useMutation } from 'react-query';
 import { useAppContext } from '../../../context';
-import { ContractFormValidator, getItems, postItem } from '../../../util';
+import {
+  ContractFormValidator,
+  getItems,
+  postItem,
+  getScreensByRoute,
+} from '../../../util';
 import { Contract, Customer, ContractType, Context } from '../../../type';
 import { ActionsFeedBack } from '../../../component';
 import {
@@ -19,7 +25,17 @@ import {
  * Provide screen ContractForm.
  */
 const ContractForm = () => {
-  const { screen } = useAppContext() as Context;
+  const { screen, setScreen, availableScreens } = useAppContext() as Context;
+
+  const { data: dataCustomers } = useQuery('customers', () =>
+    getItems('/customers')
+  );
+  const customers = (dataCustomers?.data as Customer[]) || [];
+
+  const { data: dataContractTypes } = useQuery('contract_types', () =>
+    getItems('/contract_types')
+  );
+  const contractTypes = (dataContractTypes?.data as ContractType[]) || [];
 
   const formik = useFormik({
     initialValues: {
@@ -39,21 +55,24 @@ const ContractForm = () => {
     await postItem('/contracts', values);
   });
 
-  const { data: dataCustomers } = useQuery('customers', () =>
-    getItems('/customers')
-  );
-  const customers = (dataCustomers?.data as Customer[]) || [];
+  const handleSave = (event: MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    formik.handleSubmit();
+    reset();
+    setScreen(getScreensByRoute(screen, availableScreens, ['overview'])[0]);
+  };
 
-  const { data: dataContractTypes } = useQuery('contract_types', () =>
-    getItems('/contract_types')
-  );
-  const contractTypes = (dataContractTypes?.data as ContractType[]) || [];
+  const handleSaveContinue = (event: MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    formik.handleSubmit();
+    setTimeout(() => reset(), 4000);
+  };
 
   return (
     <Container spacing={50} direction="vertical" center={true}>
       <Text variant="h3">{screen.label}</Text>
       {isSuccess && <ActionsFeedBack isValid={true} />}
-      <Form onSubmit={formik.handleSubmit}>
+      <Form>
         <Label htmlFor="customerId">
           <Text variant="h4">Client</Text>
           <Select
@@ -129,20 +148,38 @@ const ContractForm = () => {
             <Text variant="p">{formik.errors.rate}</Text>
           )}
         </Label>
-        <Submit
-          type="submit"
-          value="Créer"
-          isValid={
-            formik.touched.customerId &&
-            !formik.errors.customerId &&
-            formik.touched.contractTypeId &&
-            !formik.errors.contractTypeId &&
-            formik.touched.description &&
-            !formik.errors.description &&
-            formik.touched.rate &&
-            !formik.errors.rate
-          }
-        />
+        <Container direction="horizontal" spacing={20}>
+          <Submit
+            type="submit"
+            value="Créer et continuer"
+            onClick={handleSaveContinue}
+            isValid={
+              formik.touched.customerId &&
+              !formik.errors.customerId &&
+              formik.touched.contractTypeId &&
+              !formik.errors.contractTypeId &&
+              formik.touched.description &&
+              !formik.errors.description &&
+              formik.touched.rate &&
+              !formik.errors.rate
+            }
+          />
+          <Submit
+            type="submit"
+            value="Créer"
+            onClick={handleSave}
+            isValid={
+              formik.touched.customerId &&
+              !formik.errors.customerId &&
+              formik.touched.contractTypeId &&
+              !formik.errors.contractTypeId &&
+              formik.touched.description &&
+              !formik.errors.description &&
+              formik.touched.rate &&
+              !formik.errors.rate
+            }
+          />
+        </Container>
       </Form>
     </Container>
   );

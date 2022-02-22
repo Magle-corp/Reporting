@@ -1,8 +1,7 @@
 // Use.
-import { useState } from 'react';
 import { useAppContext } from '../context';
-import { Context, Screen } from '../type';
-import { useGetScreensByRoute } from '../hook';
+import { Context } from '../type';
+import { getScreensByRoute } from '../util';
 import { Text, Container } from '../ui';
 
 /**
@@ -10,9 +9,10 @@ import { Text, Container } from '../ui';
  */
 const ItemOverView = () => {
   const { screen, setScreen, availableScreens } = useAppContext() as Context;
-  const [itemMenus] = useState<Screen[]>(
-    useGetScreensByRoute(screen, availableScreens, ['list', 'add'])
-  );
+  const itemMenus = getScreensByRoute(screen, availableScreens, [
+    'list',
+    'add',
+  ]);
 
   return (
     <Container spacing={30} direction="vertical">

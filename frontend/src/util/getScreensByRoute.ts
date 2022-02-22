@@ -11,7 +11,7 @@ import { Screen } from '../type';
  * @param args
  *    Array of string, values used for filter.
  */
-const useGetScreensByRoute = (
+const getScreensByRoute = (
   currentScreen: Screen,
   availableScreens: Screen[],
   args: Array<'overview' | 'list' | 'add'>
@@ -23,4 +23,4 @@ const useGetScreensByRoute = (
   );
 };
 
-export { useGetScreensByRoute };
+export { getScreensByRoute };

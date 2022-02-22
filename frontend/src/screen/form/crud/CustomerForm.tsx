@@ -1,8 +1,13 @@
 // Use.
+import { MouseEvent } from 'react';
 import { useFormik } from 'formik';
 import { useMutation } from 'react-query';
 import { useAppContext } from '../../../context';
-import { CustomerFormValidator, postItem } from '../../../util';
+import {
+  CustomerFormValidator,
+  getScreensByRoute,
+  postItem,
+} from '../../../util';
 import { Context, Customer } from '../../../type';
 import { ActionsFeedBack } from '../../../component';
 import { Container, Form, Input, Label, Submit, Text } from '../../../ui';
@@ -11,7 +16,7 @@ import { Container, Form, Input, Label, Submit, Text } from '../../../ui';
  * Provide screen CustomerForm.
  */
 const CustomerForm = () => {
-  const { screen } = useAppContext() as Context;
+  const { screen, setScreen, availableScreens } = useAppContext() as Context;
 
   const formik = useFormik({
     initialValues: {
@@ -28,11 +33,24 @@ const CustomerForm = () => {
     await postItem('/customers', values);
   });
 
+  const handleSave = (event: MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    formik.handleSubmit();
+    reset();
+    setScreen(getScreensByRoute(screen, availableScreens, ['overview'])[0]);
+  };
+
+  const handleSaveContinue = (event: MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    formik.handleSubmit();
+    setTimeout(() => reset(), 4000);
+  };
+
   return (
     <Container spacing={50} direction="vertical" center={true}>
       <Text variant="h3">{screen.label}</Text>
       {isSuccess && <ActionsFeedBack isValid={true} />}
-      <Form onSubmit={formik.handleSubmit}>
+      <Form>
         <Label htmlFor="name">
           <Text variant="h4">Nom</Text>
           <Input
@@ -57,16 +75,30 @@ const CustomerForm = () => {
             <Text variant="p">{formik.errors.surname}</Text>
           )}
         </Label>
-        <Submit
-          type="submit"
-          value="Créer"
-          isValid={
-            formik.touched.name &&
-            !formik.errors.name &&
-            formik.touched.surname &&
-            !formik.errors.surname
-          }
-        />
+        <Container direction="horizontal" spacing={20}>
+          <Submit
+            type="submit"
+            value="Créer et continuer"
+            onClick={handleSaveContinue}
+            isValid={
+              formik.touched.name &&
+              !formik.errors.name &&
+              formik.touched.surname &&
+              !formik.errors.surname
+            }
+          />
+          <Submit
+            type="submit"
+            value="Créer"
+            onClick={handleSave}
+            isValid={
+              formik.touched.name &&
+              !formik.errors.name &&
+              formik.touched.surname &&
+              !formik.errors.surname
+            }
+          />
+        </Container>
       </Form>
     </Container>
   );

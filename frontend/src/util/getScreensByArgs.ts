@@ -9,7 +9,7 @@ import { Screen } from '../type';
  * @param args
  *    Array of string, values used for filter.
  */
-const useGetScreensByArgs = (
+const getScreensByArgs = (
   availableScreens: Screen[],
   args: Array<'overview' | 'list' | 'add'>
 ) => {
@@ -18,4 +18,4 @@ const useGetScreensByArgs = (
   );
 };
 
-export { useGetScreensByArgs };
+export { getScreensByArgs };

@@ -8,6 +8,9 @@ import {
 } from './screen';
 import { Broom, Contract, Customer } from './theme/icon';
 
+/**
+ * Navigation items.
+ */
 const availableScreens: Context['availableScreens'] = [
   {
     label: 'Clients',

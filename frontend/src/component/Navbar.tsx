@@ -1,9 +1,8 @@
 // Use.
-import { useState } from 'react';
 import styled from 'styled-components';
 import { useAppContext } from '../context';
-import { Context, Screen } from '../type';
-import { useGetScreensByArgs } from '../hook';
+import { Context } from '../type';
+import { getScreensByArgs } from '../util';
 import { Text } from '../ui';
 
 /**
@@ -11,9 +10,7 @@ import { Text } from '../ui';
  */
 const Navbar = () => {
   const { setScreen, availableScreens } = useAppContext() as Context;
-  const [itemMenus] = useState<Screen[]>(
-    useGetScreensByArgs(availableScreens, ['overview'])
-  );
+  const itemMenus = getScreensByArgs(availableScreens, ['overview']);
 
   return (
     <StyledNavbar>

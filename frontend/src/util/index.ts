@@ -6,3 +6,5 @@ export { SignInFormValidator } from './formValidator/SignInFormValidator';
 
 // Util functions.
 export { getItems, postItem } from './fetcher';
+export { getScreensByArgs } from './getScreensByArgs';
+export { getScreensByRoute } from './getScreensByRoute';
