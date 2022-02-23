@@ -22,6 +22,10 @@ class Intervention implements TimestampableInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups([
+        'read:intervention:item',
+        'read:contract:item'
+    ])]
     private $id;
 
     #[ORM\Column(type: 'datetime_immutable')]

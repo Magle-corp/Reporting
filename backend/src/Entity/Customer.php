@@ -23,6 +23,11 @@ class Customer implements TimestampableInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups([
+        'read:customer:item',
+        'read:contract:item',
+        'read:intervention:item'
+    ])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
