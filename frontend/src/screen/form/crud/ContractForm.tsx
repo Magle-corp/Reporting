@@ -69,7 +69,7 @@ const ContractForm = () => {
   };
 
   return (
-    <Container spacing={50} direction="vertical" center={true}>
+    <Container spacing={50} direction="vertical">
       <Text variant="h3">{screen.label}</Text>
       {isSuccess && <ActionsFeedBack isValid={true} />}
       <Form>
