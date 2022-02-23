@@ -27,15 +27,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'read' => false,
         ]
     ],
-//    itemOperations: [
-//        'get' => [
-//            'controller' => NotFoundAction::class,
-//            'pagination_enabled' => false,
-//            'openapi_context' => ['summary' => 'Retrieves a User resources.'],
-//            'output' => false,
-//            'read' => false
-//        ]
-//    ],
+    itemOperations: [],
     normalizationContext: ['groups' => ['read:user:item']],
     security: 'is_granted("ROLE_USER")'
 )]
@@ -49,6 +41,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Groups(['read:user:item'])]
     private $email;
+
+    #[ORM\Column(type: 'string', length: 40)]
+    #[Groups(['read:user:item'])]
+    private $username;
 
     #[ORM\Column(type: 'json')]
     #[Groups(['read:user:item'])]
@@ -70,6 +66,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->email = $username;
 
         return $this;
     }
