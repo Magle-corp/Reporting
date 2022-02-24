@@ -43,7 +43,7 @@ class ContractType implements TimestampableInterface
     ])]
     private $description;
 
-    #[ORM\OneToMany(mappedBy: 'contract_type_id', targetEntity: Contract::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'contract_type_id', targetEntity: Contract::class)]
     private $contracts;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'contractTypes')]

@@ -46,11 +46,11 @@ class Customer implements TimestampableInterface
     ])]
     private $surname;
 
-    #[ORM\OneToMany(mappedBy: 'customer_id', targetEntity: Contract::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'customer_id', targetEntity: Contract::class)]
     #[Groups(['read:customer:item'])]
     private $contracts;
 
-    #[ORM\OneToMany(mappedBy: 'customer_id', targetEntity: Intervention::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'customer_id', targetEntity: Intervention::class)]
     #[Groups(['read:customer:item'])]
     private $interventions;
 

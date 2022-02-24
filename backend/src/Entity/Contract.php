@@ -51,7 +51,7 @@ class Contract implements TimestampableInterface
     ])]
     private $rate;
 
-    #[ORM\OneToMany(mappedBy: 'contract_id', targetEntity: Intervention::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'contract_id', targetEntity: Intervention::class)]
     #[Groups(['read:contract:item'])]
     private $interventions;
 
