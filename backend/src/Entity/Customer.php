@@ -54,6 +54,9 @@ class Customer implements TimestampableInterface
     #[Groups(['read:customer:item'])]
     private $interventions;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'customers')]
+    private $created_by;
+
     public function __construct()
     {
         $this->contracts = new ArrayCollection();
@@ -145,6 +148,18 @@ class Customer implements TimestampableInterface
                 $intervention->setCustomerId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->created_by;
+    }
+
+    public function setCreatedBy(?User $created_by): self
+    {
+        $this->created_by = $created_by;
 
         return $this;
     }

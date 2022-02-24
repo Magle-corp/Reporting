@@ -46,6 +46,9 @@ class ContractType implements TimestampableInterface
     #[ORM\OneToMany(mappedBy: 'contract_type_id', targetEntity: Contract::class, orphanRemoval: true)]
     private $contracts;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'contractTypes')]
+    private $created_by;
+
     public function __construct()
     {
         $this->contracts = new ArrayCollection();
@@ -106,6 +109,18 @@ class ContractType implements TimestampableInterface
                 $contract->setContractTypeId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->created_by;
+    }
+
+    public function setCreatedBy(?User $created_by): self
+    {
+        $this->created_by = $created_by;
 
         return $this;
     }
