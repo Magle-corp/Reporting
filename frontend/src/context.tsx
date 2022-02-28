@@ -1,9 +1,14 @@
 // Use.
-import { createContext, useContext, ReactNode, useState } from 'react';
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from 'react';
 import { availableScreens } from './navigation';
-import { getAuthorizedScreens } from './util';
+import { getAuthorizedScreens, getScreensByRoute } from './util';
 import { Screen } from './type';
-import { Homepage } from './screen';
 
 interface Props {
   children: ReactNode;
@@ -17,20 +22,24 @@ const AppContext = createContext();
  */
 export function AppWrapper({ children }: Props) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
-  const [screen, setScreen] = useState<Screen>({
-    label: "Page d'accueil",
-    route: 'homepage',
-    authenticated: false,
-    component: <Homepage />,
-  });
+  const [screen, setScreen] = useState<Screen | []>([]);
 
   const authorizedScreens = getAuthorizedScreens(
     availableScreens,
     isAuthenticated
   );
 
+  useEffect(() => {
+    const welcomeScreen = getScreensByRoute(
+      authorizedScreens,
+      isAuthenticated ? 'homepage' : 'signin'
+    )[0];
+    setScreen(welcomeScreen);
+  }, [isAuthenticated]);
+
   // States shared over the application.
   let sharedState = {
+    setIsAuthenticated,
     screen,
     setScreen,
     authorizedScreens,

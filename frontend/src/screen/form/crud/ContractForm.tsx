@@ -7,7 +7,7 @@ import {
   ContractFormValidator,
   getItems,
   postItem,
-  getScreensByRoute,
+  getScreensByRouteAndArgs,
 } from '../../../util';
 import { Contract, Customer, ContractType, Context } from '../../../type';
 import { ActionsFeedBack } from '../../../component';
@@ -59,7 +59,9 @@ const ContractForm = () => {
     event.preventDefault();
     formik.handleSubmit();
     reset();
-    setScreen(getScreensByRoute(screen, authorizedScreens, ['overview'])[0]);
+    setScreen(
+      getScreensByRouteAndArgs(screen, authorizedScreens, ['overview'])[0]
+    );
   };
 
   const handleSaveContinue = (event: MouseEvent<HTMLElement>) => {

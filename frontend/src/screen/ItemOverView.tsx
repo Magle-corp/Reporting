@@ -1,7 +1,7 @@
 // Use.
 import { useAppContext } from '../context';
 import { Context } from '../type';
-import { getScreensByRoute } from '../util';
+import { getScreensByRouteAndArgs } from '../util';
 import { Text, Container } from '../ui';
 
 /**
@@ -9,7 +9,7 @@ import { Text, Container } from '../ui';
  */
 const ItemOverView = () => {
   const { screen, setScreen, authorizedScreens } = useAppContext() as Context;
-  const itemMenus = getScreensByRoute(screen, authorizedScreens, [
+  const itemMenus = getScreensByRouteAndArgs(screen, authorizedScreens, [
     'list',
     'add',
   ]);

@@ -7,11 +7,12 @@ import { User, Customer, Contract, Intervention } from '../type';
  */
 const fetcher = axios.create({
   baseURL: 'http://localhost:8080/api',
-  timeout: 5000,
+  withCredentials: true,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },
+  timeout: 5000,
 });
 
 /**

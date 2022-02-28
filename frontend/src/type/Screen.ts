@@ -5,7 +5,13 @@ import { ReactNode } from 'react';
 
 interface Screen {
   label: string;
-  route: 'homepage' | 'signin' | 'contract' | 'customer' | 'intervention';
+  route:
+    | 'homepage'
+    | 'signin'
+    | 'signout'
+    | 'contract'
+    | 'customer'
+    | 'intervention';
   args?: 'overview' | 'add' | 'list';
   authenticated: boolean;
   component: ReactNode;

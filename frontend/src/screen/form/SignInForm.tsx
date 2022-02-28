@@ -4,13 +4,14 @@ import { useMutation } from 'react-query';
 import { useAppContext } from '../../context';
 import { SignInFormValidator, postItem } from '../../util';
 import { User, Context } from '../../type';
+import { ActionsFeedBack } from '../../component';
 import { Form, Label, Input, Submit, Text, Container } from '../../ui';
 
 /**
  * Provide screen SignInForm.
  */
 const SignInForm = () => {
-  const { screen } = useAppContext() as Context;
+  const { setIsAuthenticated, screen } = useAppContext() as Context;
 
   const formik = useFormik({
     initialValues: {
@@ -23,15 +24,19 @@ const SignInForm = () => {
     },
   });
 
-  const { mutate, reset } = useMutation(async (values: User) => {
-    // await postItem('/login', values);
-    console.log(values);
+  const { mutate, isSuccess, reset } = useMutation(async (values: User) => {
+    const signInRes = await postItem('/login', values);
+    signInRes.status === 200
+      ? setIsAuthenticated(true)
+      : setIsAuthenticated(false);
     reset();
   });
 
+  // TODO handle auth specials cases for ActionsFeedBack.
   return (
     <Container spacing={50} direction="vertical" center={true}>
       <Text variant="h3">{screen.label}</Text>
+      {isSuccess && <ActionsFeedBack isValid={true} />}
       <Form onSubmit={formik.handleSubmit}>
         <Label htmlFor="username">
           <Text variant="h4">Identifiant</Text>

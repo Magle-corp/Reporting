@@ -7,7 +7,7 @@ import {
   InterventionFormValidator,
   getItems,
   postItem,
-  getScreensByRoute,
+  getScreensByRouteAndArgs,
 } from '../../../util';
 import { Intervention, Customer, Contract, Context } from '../../../type';
 import { ActionsFeedBack } from '../../../component';
@@ -61,7 +61,9 @@ const InterventionForm = () => {
     event.preventDefault();
     formik.handleSubmit();
     reset();
-    setScreen(getScreensByRoute(screen, authorizedScreens, ['overview'])[0]);
+    setScreen(
+      getScreensByRouteAndArgs(screen, authorizedScreens, ['overview'])[0]
+    );
   };
 
   const handleSaveContinue = (event: MouseEvent<HTMLElement>) => {

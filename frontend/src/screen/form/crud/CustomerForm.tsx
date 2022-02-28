@@ -5,7 +5,7 @@ import { useMutation } from 'react-query';
 import { useAppContext } from '../../../context';
 import {
   CustomerFormValidator,
-  getScreensByRoute,
+  getScreensByRouteAndArgs,
   postItem,
 } from '../../../util';
 import { Context, Customer } from '../../../type';
@@ -37,7 +37,9 @@ const CustomerForm = () => {
     event.preventDefault();
     formik.handleSubmit();
     reset();
-    setScreen(getScreensByRoute(screen, authorizedScreens, ['overview'])[0]);
+    setScreen(
+      getScreensByRouteAndArgs(screen, authorizedScreens, ['overview'])[0]
+    );
   };
 
   const handleSaveContinue = (event: MouseEvent<HTMLElement>) => {

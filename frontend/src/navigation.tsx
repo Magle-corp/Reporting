@@ -2,6 +2,7 @@
 import { Context } from './type';
 import {
   ItemOverView,
+  Homepage,
   CustomerForm,
   ContractForm,
   InterventionForm,
@@ -14,11 +15,11 @@ import { Broom, Contract, Customer } from './theme/icon';
  */
 const availableScreens: Context['authorizedScreens'] = [
   {
-    label: 'Connexion',
-    route: 'signin',
+    label: "Page d'accueil",
+    route: 'homepage',
     args: 'overview',
-    authenticated: false,
-    component: <SignInForm />,
+    authenticated: true,
+    component: <Homepage />,
   },
   {
     label: 'Clients',
@@ -83,6 +84,20 @@ const availableScreens: Context['authorizedScreens'] = [
     label: 'Liste interventions',
     route: 'intervention',
     args: 'list',
+    authenticated: true,
+    component: <></>,
+  },
+  {
+    label: 'Connexion',
+    route: 'signin',
+    args: 'overview',
+    authenticated: false,
+    component: <SignInForm />,
+  },
+  {
+    label: 'Déconnexion',
+    route: 'signout',
+    args: 'overview',
     authenticated: true,
     component: <></>,
   },

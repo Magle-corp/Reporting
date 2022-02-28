@@ -5,6 +5,7 @@ import { Screen } from './Screen';
 
 interface Context {
   isAuthenticated: boolean;
+  setIsAuthenticated: Function;
   screen: Screen;
   setScreen: Function;
   authorizedScreens: Screen[];
