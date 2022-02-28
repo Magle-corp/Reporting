@@ -13,7 +13,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: InterventionRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
-    normalizationContext: ['groups' => ['read:intervention:item']]
+    normalizationContext: ['groups' => ['read:intervention:item']],
+    security: "is_granted('IS_AUTHENTICATED_FULLY')"
 )]
 class Intervention implements TimestampableInterface
 {

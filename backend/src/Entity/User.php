@@ -2,25 +2,33 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:user:item']]
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups('read:user:item')]
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Groups('read:user:item')]
     private $email;
 
     #[ORM\Column(type: 'json')]
+    #[Groups('read:user:item')]
     private $roles = [];
 
     #[ORM\Column(type: 'string')]

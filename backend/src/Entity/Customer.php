@@ -14,7 +14,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
-    normalizationContext: ['groups' => ['read:customer:item']]
+    normalizationContext: ['groups' => ['read:customer:item']],
+    security: "is_granted('IS_AUTHENTICATED_FULLY')"
 )]
 class Customer implements TimestampableInterface
 {
