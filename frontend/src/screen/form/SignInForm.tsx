@@ -14,7 +14,7 @@ const SignInForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: '',
+      username: '',
       password: '',
     },
     validationSchema: SignInFormValidator,
@@ -33,16 +33,16 @@ const SignInForm = () => {
     <Container spacing={50} direction="vertical" center={true}>
       <Text variant="h3">{screen.label}</Text>
       <Form onSubmit={formik.handleSubmit}>
-        <Label htmlFor="email">
+        <Label htmlFor="username">
           <Text variant="h4">Identifiant</Text>
           <Input
-            id="email"
+            id="username"
             type="text"
-            isValid={formik.touched.email ? !formik.errors.email : null}
-            {...formik.getFieldProps('email')}
+            isValid={formik.touched.username ? !formik.errors.username : null}
+            {...formik.getFieldProps('username')}
           />
-          {formik.touched.email && formik.errors.email && (
-            <Text variant="p">{formik.errors.email}</Text>
+          {formik.touched.username && formik.errors.username && (
+            <Text variant="p">{formik.errors.username}</Text>
           )}
         </Label>
         <Label htmlFor="password">
@@ -61,8 +61,8 @@ const SignInForm = () => {
           type="submit"
           value="Se connecter"
           isValid={
-            formik.touched.email &&
-            !formik.errors.email &&
+            formik.touched.username &&
+            !formik.errors.username &&
             formik.touched.password &&
             !formik.errors.password
           }
