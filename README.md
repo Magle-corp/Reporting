@@ -1,6 +1,6 @@
 # Reporting
 
-- Work in progress -
+Work in progress !
 
 Application de reporting pour l'activité entrepreneuriale d'un proche.
 
