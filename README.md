@@ -1,5 +1,7 @@
 # Reporting
 
+- Work in progress -
+
 Application de reporting pour l'activité entrepreneuriale d'un proche.
 
 🎼 Symfony 6  🚀 PHP 8  🔤 TypeScript 🖌 React 🏗 MySQL  📋 PhpMyAdmin  🐋 Docker
